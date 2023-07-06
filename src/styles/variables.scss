@@ -1,0 +1,26 @@
+@import '@/styles/functions.scss';
+@import '@/styles/icon.scss';
+
+$widht-main-page: 1200px;
+
+//* color
+$colorBody: #F4F4F4;
+$primaryColor: #4EA25D;
+$bgMenu: #F1F2F6;
+$strokeMenu: #C0C0C4;
+$menu-hover-text: #ffffff;
+
+//*font-size
+$fs-default: rem(16);
+$fs-title: rem(26);
+$fs-menu: rem(24);
+
+//* margin/padding
+$pd-page: rem(10);
+$margin-primary: rem(24);
+
+//* shadow
+$shd-blocks: -4px -4px 12px #262626;
+
+//* gradients
+$menu-hover: linear-gradient(90deg, #4EA25D 0%, #A0E2AC 100%);
