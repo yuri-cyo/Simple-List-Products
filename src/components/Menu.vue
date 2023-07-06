@@ -33,12 +33,13 @@
 </template>
 
 <script setup lang="js">
-import { ref, reactive, defineComponent } from "vue";
+import { ref, reactive } from "vue";
 
 const productName = ref('Товари')
-const docName = reactive('Документи')
-const setName = reactive('Опції')
+const docName = ref('Документи')
+const setName = ref('Опції')
 
+// provide('productName', productName)
 
 
 

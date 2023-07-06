@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
 		<div class="sections-wrapper">
-			<p> {{ productName }}</p>
+			<!-- <p> {{ productName }}</p> -->
 			<p>ТОВАРИ2 </p>
 			<p>ТОВАРИ3 </p>
 			<p>ТОВАРИ4 </p>
@@ -11,6 +11,9 @@
 
 <script setup>
 	import { ref, reactive } from "vue";
+	// defineProps(['productName']);
+	// const productName = inject('productName');
+	// return {productName};
 </script>
 
 <style lang="scss" scoped>
