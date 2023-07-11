@@ -2,8 +2,8 @@ import { createApp } from 'vue'
 import '@/style.scss'
 import router from './router.js'
 // import Vue from 'vue'
-// import store from './store/index.js'
-import App from './App.vue'
+import App from './App.vue';
+// import store from './store.js';
 
 import Menu from './components/Menu.vue';
 import Header from './components/Header.vue';

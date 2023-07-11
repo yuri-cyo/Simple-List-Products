@@ -1,7 +1,7 @@
 <template>
 	<div class="page">
 		<div class="sections-wrapper">
-			<!-- <p> {{ productName }}</p> -->
+			<!-- <p> {{ store.state.count }}</p> -->
 			<p>ТОВАРИ2 </p>
 			<p>ТОВАРИ3 </p>
 			<p>ТОВАРИ4 </p>
@@ -14,6 +14,10 @@
 	// defineProps(['productName']);
 	// const productName = inject('productName');
 	// return {productName};
+	// function ale() {
+	// 	console.log(this.$store.state.count)
+	// }
+	// ale()
 </script>
 
 <style lang="scss" scoped>
