@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="js">
-import { ref, reactive, defineProps, defineEmits } from "vue";
+import { ref, reactive } from "vue";
 
 const productName = 'ТовариEmit'
 const docName = 'Документи'

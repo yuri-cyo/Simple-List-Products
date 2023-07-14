@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineOptions } from 'vue';
+import { ref } from 'vue';
 
 let productName = 'Товари';
 
