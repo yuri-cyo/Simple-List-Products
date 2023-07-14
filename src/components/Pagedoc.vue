@@ -1,8 +1,11 @@
 <template>
 	<div class="page">
-		<div class="sections-wrapper">
-			<p>Документи</p>
-		</div>
+		<Header>
+			<template v-slot:default>
+				<span class="icon-doc"></span>
+				<h2 class="title product-title">Документи</h2>
+			</template>
+		</Header>
 	</div>
 </template>
 
@@ -12,15 +15,6 @@
 
 <style lang="scss" scoped>
 .page {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	overflow: hidden;
-	padding: $pd-page;
-}
 
-.sections-wrapper {
-	max-width: $widht-main-page;
 }
-
 </style>

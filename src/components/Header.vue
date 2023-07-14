@@ -1,35 +1,53 @@
 <template>
-    <div>
-        <header class="header">
-            <div class="header__content">
-                <h1>HEADER</h1>
-            </div>
+        <header class="header-wrapper">
+				<div class="title title-wrapper">
+                    <slot class="title-wrapper"></slot>
+                   
+					<!-- <span class="icon-product"></span>
+					<h2 class="title product-title"> {{ myProductName }}</h2> -->
+				</div>
+                <slot 
+                    name="actions"
+                    class="actions"
+                ></slot>
         </header>
-    </div>
 </template>
 
-<script>
-export default {
-    setup () {
-        
+<script setup>
 
-        return {}
-    }
-}
 </script>
 
 <style lang="scss" scoped>
-.header {
-    // padding: $pd-page;
-
-    background-color: rgb(211, 148, 228);
-    // position: absolute;
+.header-wrapper {
     width: 100%;
-    &__content{
-        // position: fixed;
-        padding: $pd-page;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: rem(7);
+    column-gap: rem(20);
+    justify-content:center;
+    align-items: center;
+    padding: $pd-page;
+    border-bottom: 1px solid $strokeMenu;
+    background-color: $bgMenu;
+    // background-color: $color-tr-even;
+    position: relative;
+}
 
-    }
+.title-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: rem(10);
+    // margin-left: auto;
+    // margin-right: auto;
+    position: relative;
+    // margin-right: -20px;
+    // margin-left: -50%;
+}
+
+.actions {
+    // position: absolute;
+    // right: 0;
+    // margin-left: -100%;
 }
 
 </style>

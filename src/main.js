@@ -9,6 +9,8 @@ import Menu from './components/Menu.vue';
 import Header from './components/Header.vue';
 import Products from './components/Products.vue';
 import Footer from './components/Footer.vue';
+import Producttable from './components/Producttable.vue';
+import Table from './components/Table.vue';
 
 // new Vue({
 //     store,
@@ -22,7 +24,9 @@ const components = [
     { name: 'Products', component: Products },
     { name: 'Menu', component: Menu },
     { name: 'Header', component: Header },
-    { name: 'Footer', component: Footer }
+    { name: 'Footer', component: Footer },
+    { name: 'Producttable', component: Producttable },
+    { name: 'Table', component: Table }
 ];
 
 components.forEach(({ name, component }) => {

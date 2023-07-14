@@ -10,6 +10,18 @@ $bgMenu: #F1F2F6;
 $strokeMenu: #C0C0C4;
 $menu-hover-text: #ffffff;
 
+$icon-add: #50C258;
+$icon-edit: #F8B94F;
+$icon-del: #F5615E;
+
+// $color-th: #f1f0d3;
+// $color-th: #eef5f1;
+$color-th: $bgMenu;
+$color-tr-odd: #FDFDFD;
+$color-tr-even: #EDEDED;
+// $table-input-focus-border: #fd3995;
+$table-input-focus-border: #F5615E;
+$table-input-focus-bg: #fffffb;
 //*font-size
 $fs-default: rem(16);
 $fs-title: rem(26);

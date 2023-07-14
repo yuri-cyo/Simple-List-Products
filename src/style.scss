@@ -29,9 +29,20 @@ body {
 	padding: 0;
 	height: 100%;
 	background: $colorBody;
+	// overflow: hidden;
+}
+
+.content-container {
+	// overflow: hidden;
+	// overflow-x: scroll;
+	max-height: 100%;
 }
 
 .title {
 	font-size: $fs-title;
 	font-weight: 600;
+}
+
+.page {
+	height: 100%;
 }

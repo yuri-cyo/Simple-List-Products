@@ -8,19 +8,19 @@
 				</div>
 				<span class="nav__menu-title title">Меню</span>
 				<ul class="menu">
-					<li>
+					<li  @click="$emit('action', myProductName)">
 						<router-link class="router-link" to="/prod">
-						<span class="icon-product menu__icons-list"></span>
-						<span class="menu__list-titles">{{ productName }}</span>
+							<span class="icon-product menu__icons-list"></span>
+							<span class="menu__list-titles">{{ myProductName }}</span>
 						</router-link>
 					</li>
-					<li>
+					<li @click="$emit('action', docName)">
 						<router-link class="router-link" to="/doc">
 							<span class="icon-doc menu__icons-list"></span>
 							<span class="menu__list-titles">{{ docName }}</span>
 						</router-link>
 					</li>
-					<li>
+					<li @click="$emit('action', setName)">
 						<router-link class="router-link" to="/set">
 							<span class="icon-set menu__icons-list"></span>
 							<span class="menu__list-titles">{{ setName }}</span>
@@ -33,11 +33,28 @@
 </template>
 
 <script setup lang="js">
-// import { ref, reactive } from "vue";
+import { ref, reactive, defineProps, defineEmits } from "vue";
 
-const productName = 'Товари'
+const productName = 'ТовариEmit'
 const docName = 'Документи'
-const setName = 'Опції'
+const setName = ref('Опції')
+
+const props = defineProps({
+	myProductName: {
+		type: String,
+		required: true
+	},
+	action: {
+		type: () => {}
+	}
+});
+// const emit = defineEmits({
+// 		myProductName: {
+// 		type: String,
+// 		required: true
+// 	}
+// });
+// const emit = defineEmits([productName, docName, setName])
 
 // provide('productName', productName)
 
