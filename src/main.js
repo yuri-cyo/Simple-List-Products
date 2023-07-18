@@ -11,6 +11,9 @@ import Products from './components/Products.vue';
 import Footer from './components/Footer.vue';
 import Producttable from './components/Producttable.vue';
 import Table from './components/Table.vue';
+import ModalAddProd from './components/modal/ModalAddProd.vue';
+import BtnClose from './components/btns/BtnClose.vue';
+import BtnSave from './components/btns/BtnSave.vue';
 
 // new Vue({
 //     store,
@@ -26,7 +29,10 @@ const components = [
     { name: 'Header', component: Header },
     { name: 'Footer', component: Footer },
     { name: 'Producttable', component: Producttable },
-    { name: 'Table', component: Table }
+    { name: 'Table', component: Table },
+    { name: 'ModalAddProd', component: ModalAddProd },
+    { name: 'BtnClose', component: BtnClose },
+    { name: 'BtnSave', component: BtnSave },
 ];
 
 components.forEach(({ name, component }) => {

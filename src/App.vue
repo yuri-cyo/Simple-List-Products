@@ -2,14 +2,18 @@
   <div class="wrapper">
     <div class="container">
       <Menu
-        @action="myFunc"
         class="menu"
-        :myProductName="productName"
+        :productName="productName"
+        :docName="docName"
+        :setName="setName"
         >
       </Menu>
       <div class="content-container">
         <router-view
-        :myProductName="productName"
+        class="router-view"
+        :productName="productName"
+        :docName="docName"
+        :setName="setName"
         ></router-view>
       </div>
     </div>
@@ -20,12 +24,9 @@
 <script setup>
 import { ref } from 'vue';
 
-let productName = 'Товари';
-
-const myFunc = (arg) => {
-  console.log(arg);
-  productName = arg;
-}
+const productName = 'Товари';
+const docName = 'Документи'
+const setName = 'Опції'
 
 </script>
 
@@ -43,24 +44,32 @@ const myFunc = (arg) => {
 .container {
   display: flex;
   flex: 1 1 auto;
+  // width: 100%;
   // width: 1000px;
-}
-
-.menu {
-// position: relative;
 }
 
 .content-container {
   // padding: 0 rem(10);
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  // width: 100%;
+  // overflow-x: scroll;
+  overflow: scroll;
+  height: 100vh;
+  width: calc(100vw - 300px);
+  position: relative;
+}
+
+.router-view {
+  // width: 100vw;
+  // padding: 0;
+  // margin: 0;
 }
 
 .header {
 position: fixed;
 }
 
-.page {
-// padding-top: rem(60) !important;
-}
 
 </style>

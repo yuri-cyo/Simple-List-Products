@@ -4,8 +4,10 @@
 $widht-main-page: 1200px;
 
 //* color
+$coolorDarkTxt: rgb(14, 14, 14);
 $colorBody: #F4F4F4;
-$primaryColor: #4EA25D;
+// $primaryColor: #4EA25D;
+$primaryColor: #f55e5e;
 $bgMenu: #F1F2F6;
 $strokeMenu: #C0C0C4;
 $menu-hover-text: #ffffff;
@@ -22,6 +24,10 @@ $color-tr-even: #EDEDED;
 // $table-input-focus-border: #fd3995;
 $table-input-focus-border: #F5615E;
 $table-input-focus-bg: #fffffb;
+
+//* widht
+$w-menu: 300px;
+
 //*font-size
 $fs-default: rem(16);
 $fs-title: rem(26);
@@ -36,3 +42,22 @@ $shd-blocks: -4px -4px 12px #262626;
 
 //* gradients
 $menu-hover: linear-gradient(90deg, #4EA25D 0%, #A0E2AC 100%);
+
+body {
+    color: $coolorDarkTxt;
+}
+
+.btn {
+    // background-color: $icon-del;
+    border: none;
+    padding: 10px;
+    color: #ffff;
+    font-size: rem(16);
+    border-radius: rem(10);
+    transition: all 0.3s ease 0s;
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+    }
+}

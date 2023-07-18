@@ -29,7 +29,7 @@ body {
 	padding: 0;
 	height: 100%;
 	background: $colorBody;
-	// overflow: hidden;
+	overflow: hidden;
 }
 
 .content-container {
@@ -46,3 +46,44 @@ body {
 .page {
 	height: 100%;
 }
+
+/* Стилізація скроллбара для WebKit (Chrome, Safari, Opera) */
+::-webkit-scrollbar {
+	width: 8px; /* Ширина скроллбара */
+	height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+	background-color: #f1f1f1; /* Колір фону треку скроллбара */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background-color: #888; /* Колір блока скроллбара */
+	border-radius: 4px; /* Радіус кутів блока скроллбара */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+	background-color: #555; /* Колір блока скроллбара при наведенні */
+  }
+  
+  /* Стилізація скроллбара для Firefox */
+  /* Примітка: підтримка Firefox була додана у Firefox 64 */
+  /* У більш ранніх версіях Firefox ці стилі можуть не працювати */
+  * {
+	scrollbar-width: thin; /* Ширина скроллбара */
+	scrollbar-color: #888 #f1f1f1; /* Колір блока скроллбара та фону треку скроллбара */
+  }
+  
+  *::-moz-scrollbar-track {
+	background-color: #f1f1f1; /* Колір фону треку скроллбара */
+  }
+  
+  *::-moz-scrollbar-thumb {
+	background-color: #888; /* Колір блока скроллбара */
+	border-radius: 4px; /* Радіус кутів блока скроллбара */
+  }
+  
+  *::-moz-scrollbar-thumb:hover {
+	background-color: #555; /* Колір блока скроллбара при наведенні */
+  }
+  

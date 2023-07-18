@@ -8,19 +8,19 @@
 				</div>
 				<span class="nav__menu-title title">Меню</span>
 				<ul class="menu">
-					<li  @click="$emit('action', myProductName)">
-						<router-link class="router-link" to="/prod">
+					<li>
+						<router-link :productName="productName" class="router-link" to="/prod">
 							<span class="icon-product menu__icons-list"></span>
-							<span class="menu__list-titles">{{ myProductName }}</span>
+							<span  class="menu__list-titles">{{ productName }}</span>
 						</router-link>
 					</li>
-					<li @click="$emit('action', docName)">
+					<li>
 						<router-link class="router-link" to="/doc">
 							<span class="icon-doc menu__icons-list"></span>
 							<span class="menu__list-titles">{{ docName }}</span>
 						</router-link>
 					</li>
-					<li @click="$emit('action', setName)">
+					<li>
 						<router-link class="router-link" to="/set">
 							<span class="icon-set menu__icons-list"></span>
 							<span class="menu__list-titles">{{ setName }}</span>
@@ -32,22 +32,32 @@
 	</div>
 </template>
 
-<script setup lang="js">
+<script setup>
 import { ref, reactive } from "vue";
 
-const productName = 'ТовариEmit'
-const docName = 'Документи'
-const setName = ref('Опції')
+// const productName = 'Товари'
+// const docName = 'Документи'
+// const setName = 'Опції'
 
 const props = defineProps({
-	myProductName: {
+	productName: {
 		type: String,
 		required: true
 	},
-	action: {
-		type: () => {}
-	}
-});
+	docName: {
+		type: String,
+		required: true
+	},
+	setName: {
+		type: String,
+		required: true
+	},
+
+})
+// 	action: {
+// 		type: () => {}
+// 	}
+// });
 // const emit = defineEmits({
 // 		myProductName: {
 // 		type: String,
@@ -67,11 +77,13 @@ const props = defineProps({
 
 $t-transition-menu: .3s;
 .nav {
-	width: rem(300);
+	width: $w-menu;
 	height: 100%;
 	background-color: $bgMenu;
 	border-right: 1px solid $strokeMenu;
 	font-size: $fs-menu;
+	// z-index: 3;
+	// position: relative;
 	&__wrapper {
 		top: 0px;
 		left: 50%;
