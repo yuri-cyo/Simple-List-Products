@@ -31,7 +31,7 @@
 				@close="addingProduct"
 			>
 				<BtnClose @click="addingProduct">Закрити</BtnClose>
-				<BtnSave>Зберігти</BtnSave>
+				<BtnSave>Зберегти</BtnSave>
 			</ModalAddProd>
 			<Table></Table>
 	<!-- </div> -->

@@ -7,7 +7,7 @@ $widht-main-page: 1200px;
 $coolorDarkTxt: rgb(14, 14, 14);
 $colorBody: #F4F4F4;
 // $primaryColor: #4EA25D;
-$primaryColor: #f55e5e;
+$primaryColor: hsl(0, 88%, 66%);
 $bgMenu: #F1F2F6;
 $strokeMenu: #C0C0C4;
 $menu-hover-text: #ffffff;
@@ -23,7 +23,17 @@ $color-tr-odd: #FDFDFD;
 $color-tr-even: #EDEDED;
 // $table-input-focus-border: #fd3995;
 $table-input-focus-border: #F5615E;
-$table-input-focus-bg: #fffffb;
+$table-input-focus-bg: #fffefe;
+
+//* btns
+$btns-hvr-eclipse: 20%;
+$btn-shadow: 0 2px 6px;
+$btn-shadow-opacity: 0.5;
+$btn-close: hsl(0, 0%, 53%);
+$btn-close-hvr: hsl(0, 0%, 53% - $btns-hvr-eclipse);
+$btn-save: $primaryColor;
+$btn-save-hvr: hsl(0, 88%, 66% - $btns-hvr-eclipse);
+
 
 //* widht
 $w-menu: 300px;
@@ -55,9 +65,43 @@ body {
     font-size: rem(16);
     border-radius: rem(10);
     transition: all 0.3s ease 0s;
+    // transition: background-color 0.3s;
+    overflow: hidden;
+    position: relative;
+    // background-color: #4EA25D;
     &:hover {
-        opacity: 0.8;
+        // filter: brightness(0.8);
+        // opacity: 0.75;
+        // box-shadow: inset 0px 0px 100px #0b0b0b41;
+        // box-shadow: 0 2px 6px inset, inset 0px 0px 100px #0b0b0b41;
+        // opacity: 0.8;
+        // background-color: currentColor;
+        // backdrop-filter: blur(0.8);
         cursor: pointer;
         transition: all 0.3s ease 0s;
+    }
+}
+
+//!=====================
+   
+
+
+
+
+
+
+
+
+
+
+.input {
+    padding: rem(5);
+    border: 1px solid $strokeMenu;
+    border-radius: rem(5);
+    // min-width: 100%;
+    &:focus {
+        border: 1px solid $table-input-focus-border;
+        outline: none;
+        background-color: $table-input-focus-bg;
     }
 }

@@ -13,7 +13,7 @@ select {
         padding: rem(5);
         border: 1px solid $strokeMenu;
         border-radius: rem(5);
-        max-width: 100%;
+        // max-width: 20%;
         &:focus {
             border: 1px solid $table-input-focus-border;
             outline: none;

@@ -15,7 +15,10 @@
 
 <style lang="scss" scoped>
 .btn-this {
-    // background-color: $icon-del;
-    background-color: #535353;
+    background-color: $btn-close;
+    box-shadow: $btn-shadow rgba($btn-close, $btn-shadow-opacity);
+    &:hover{
+        background-color: $btn-close-hvr;
+    }
 }
 </style>

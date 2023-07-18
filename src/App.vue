@@ -28,6 +28,14 @@ const productName = 'Товари';
 const docName = 'Документи'
 const setName = 'Опції'
 
+const trimInputMixin = {
+  methods: {
+    handleInput(event) {
+      event.target.value = event.target.value.trim();
+    }
+  }
+};
+
 </script>
 
 <style lang="scss">

@@ -12,22 +12,46 @@
                 </tr>
                 <tr>
                     <th>
-                        <InputComponent></InputComponent>
+                        <InputComponent>
+                            <input 
+                                type="text"
+                            >
+                        </InputComponent>
                     </th>
                     <th>
-                        <InputComponent></InputComponent>
+                        <InputComponent>
+                            <input 
+                                type="text"
+                            >
+                        </InputComponent>
                     </th>
                     <th>
-                        <InputComponent></InputComponent>
+                        <InputComponent>
+                            <input 
+                                type="text"
+                            >
+                        </InputComponent>
                     </th>
                     <th>
-                        <InputComponent></InputComponent>
+                        <InputComponent>
+                            <input 
+                                type="text"
+                            >
+                        </InputComponent>
                     </th>
                     <th>
-                        <InputComponent></InputComponent>
+                        <InputComponent>
+                            <input 
+                                type="text"
+                            >
+                        </InputComponent>
                     </th>
                     <th>
-                        <InputComponent></InputComponent>
+                        <InputComponent>
+                            <input 
+                                type="text"
+                            >
+                        </InputComponent>
                     </th>
                 </tr>
             </thead>

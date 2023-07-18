@@ -15,7 +15,10 @@
 
 <style lang="scss" scoped>
 .btn-this {
-    // background-color: $icon-add;
-    background-color: $icon-del;
+    background-color: $btn-save;
+    box-shadow: $btn-shadow rgba($icon-del, $btn-shadow-opacity);
+    &:hover{
+        background-color: $btn-save-hvr;
+    }
 }
 </style>
