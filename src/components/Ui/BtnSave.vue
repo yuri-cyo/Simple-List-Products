@@ -15,6 +15,7 @@
 
 <style lang="scss" scoped>
 .btn-this {
-    background-color: $icon-add;
+    // background-color: $icon-add;
+    background-color: $icon-del;
 }
 </style>

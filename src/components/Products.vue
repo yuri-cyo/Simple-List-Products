@@ -30,8 +30,8 @@
 				:modalActive="modalActive"
 				@close="addingProduct"
 			>
-				<BtnSave>Зберігти</BtnSave>
 				<BtnClose @click="addingProduct">Закрити</BtnClose>
+				<BtnSave>Зберігти</BtnSave>
 			</ModalAddProd>
 			<Table></Table>
 	<!-- </div> -->

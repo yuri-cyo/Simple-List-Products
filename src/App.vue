@@ -38,7 +38,6 @@ const setName = 'Опції'
 
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .container {
@@ -46,6 +45,10 @@ const setName = 'Опції'
   flex: 1 1 auto;
   // width: 100%;
   // width: 1000px;
+}
+.menu {
+  min-height: 100vh;
+
 }
 
 .content-container {

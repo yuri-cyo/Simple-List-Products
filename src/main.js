@@ -12,8 +12,10 @@ import Footer from './components/Footer.vue';
 import Producttable from './components/Producttable.vue';
 import Table from './components/Table.vue';
 import ModalAddProd from './components/modal/ModalAddProd.vue';
-import BtnClose from './components/btns/BtnClose.vue';
-import BtnSave from './components/btns/BtnSave.vue';
+import BtnClose from './components/Ui/BtnClose.vue';
+import BtnSave from './components/Ui/BtnSave.vue';
+import InputComponent from './components/Ui/InputComponent.vue';
+import SelectComponent from './components/Ui/SelectComponent.vue';
 
 // new Vue({
 //     store,
@@ -33,6 +35,8 @@ const components = [
     { name: 'ModalAddProd', component: ModalAddProd },
     { name: 'BtnClose', component: BtnClose },
     { name: 'BtnSave', component: BtnSave },
+    { name: 'InputComponent', component: InputComponent },
+    { name: 'SelectComponent', component: SelectComponent },
 ];
 
 components.forEach(({ name, component }) => {

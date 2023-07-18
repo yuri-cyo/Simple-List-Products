@@ -12,22 +12,22 @@
                 </tr>
                 <tr>
                     <th>
-                        <input type="text">
+                        <InputComponent></InputComponent>
                     </th>
                     <th>
-                        <input type="text">
+                        <InputComponent></InputComponent>
                     </th>
                     <th>
-                        <input type="text">
+                        <InputComponent></InputComponent>
                     </th>
                     <th>
-                        <input type="text">
+                        <InputComponent></InputComponent>
                     </th>
                     <th>
-                        <input type="text">
+                        <InputComponent></InputComponent>
                     </th>
                     <th>
-                        <input type="text">
+                        <InputComponent></InputComponent>
                     </th>
                 </tr>
             </thead>
@@ -100,17 +100,7 @@ const poducts = reactive([
     th {
         background-color: $color-th;
 
-        input {
-            padding: rem(5);
-            border: 1px solid $strokeMenu;
-            border-radius: rem(5);
-            max-width: 100%;
-            &:focus {
-                border: 1px solid $table-input-focus-border;
-                outline: none;
-                background-color: $table-input-focus-bg;
-            }
-        }
+        
     }
     tr:nth-child(odd) {
         background-color: $color-tr-odd;
@@ -130,12 +120,12 @@ const poducts = reactive([
                 left: -1px;
                 right: -1px;
                 border: rem(1) solid $icon-del;
-                z-index: 1;
+                z-index: 100;
             }
         }
         td {
             position: relative;
-            z-index: 10;
+            z-index: 101;
         }
     }
 }
