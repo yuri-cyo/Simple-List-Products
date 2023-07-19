@@ -58,7 +58,7 @@
             <tbody>
                 <tr
                 v-for="poduct in poducts"
-                :key="poducts.code"
+                :key="poduct.code"
                 class="tr-body">
                     <td>{{ poduct.code }}</td>
                     <td>{{ poduct.name }}</td>
