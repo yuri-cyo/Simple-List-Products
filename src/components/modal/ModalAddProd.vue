@@ -1,12 +1,15 @@
 <template>
     <div>
         
-            <div v-show="modalActive" class="modal-fone">
+            <div 
+                class="modal-fone"
+                v-show="modalActive"
+            >
                 <div class="modal-wrapper">
                     <div class="modal-header">
                         <div class="title-modal">
                             <span class="icon-product"></span>
-                            <h4 class="title-text">Картка товару: {{ nameValue }}</h4>
+                            <h4 class="title-text">Картка товару: {{ modalInput.nameValue }}</h4>
                         </div>
                     </div>
                     <div class="modal-body">
@@ -16,54 +19,71 @@
                             <InputComponent >
                                 <input 
                                     type="text"
-                                    v-model="nameValue"
+                                    v-model="modalInput.nameValue"
+                                    placeholder="Назва"
                                 >
                             </InputComponent>
                         </div>
-                    <div class="unit-code-wrapper">
-                        <div class="input-wrapper input-unit-code-wrapper">
-                            <Label>Код товару</Label>
-                            <InputComponent>
-                                <input type="text">
-                            </InputComponent>
+                        <div class="unit-code-wrapper">
+                            <div class="input-wrapper input-unit-code-wrapper">
+                                <Label>Код товару</Label>
+                                <InputComponent>
+                                    <input
+                                        type="text"
+                                        v-model="modalInput.codeValue"
+                                        placeholder="Код товару"
+                                    >
+                                </InputComponent>
+                            </div>
+                            <div class="input-wrapper input-unit-code-wrapper">
+                                <Label>Од. вим.</Label>
+                                <SelectComponent>
+                                    <option value="">шт</option>
+                                    <option value="">кг</option>
+                                </SelectComponent>
+                            </div>
                         </div>
-                        <div class="input-wrapper input-unit-code-wrapper">
-                            <Label>Од. вим.</Label>
-                            <SelectComponent>
-                                <option value="">шт</option>
-                                <option value="">кг</option>
-                            </SelectComponent>
-                        </div>
-                    </div>
                         <div class="input-wrapper">
                             <Label>Штрихкод</Label>
                             <InputComponent>
-                                <input type="text">
+                                <input
+                                    type="text"
+                                    v-model="modalInput.barcodeValue"
+                                    placeholder="Штрихкод"
+                                >
                             </InputComponent>
-                        </div>
-                    <div class="price-wrapper">
-                        <div class="price-title">
-                            <h3>Ціна</h3>
-                        </div>
+                            </div>
+                        <div class="price-wrapper">
+                            <div class="price-title">
+                                <h3>Ціна</h3>
+                            </div>
                             <div class="input-wrapper price-input-wrapper">
                                 <Label>Закупка</Label>
                                 <InputComponent>
-                                    <input type="text">
+                                    <input
+                                        type="text"
+                                        v-model="modalInput.purchasePrice"
+                                        placeholder=""
+                                    >
                                 </InputComponent>
                             </div>
                             <div class="input-wrapper price-input-wrapper">
                                 <Label>Роздрібна</Label>
                                 <InputComponent>
-                                    <input type="text">
+                                    <input
+                                        type="text"
+                                        v-model="modalInput.retailPrice"
+                                        placeholder=""
+                                    >
                                 </InputComponent>
                             </div>
-                    </div>
-                    <!-- </div> -->
-                    <div class="btns-wrapper">
-                        <slot></slot>
-                    </div>
+                        </div>
+                        <!-- </div> -->
+                        <div class="btns-wrapper">
+                            <slot></slot>
+                        </div>
                     
-                </div>
+                    </div>
                 </div>
             </div>
         
@@ -71,21 +91,47 @@
 </template>
 
 <script setup>
-import { ref, toRef } from 'vue';
-   const props = defineProps({
-    modalActive: {
-        type: Boolean
-    }
-   })
+import { ref, watch, computed, reactive } from 'vue';
+    const props = defineProps({
+        modalActive: {
+            type: Boolean
+        }
+    })
 
-   const nameValue = ref('')
+// const nameValue = ref('')
+// const codeValue = ref('')
+// const unitValue = ref('')
+// const barcodeValue = ref('')
+// const purchasePrice = ref('0')
+// const retailPrice = ref('0')
 
-   const nameProduct = ref('Назва')
-   const codeProduct = ref('Код')
-   const unitProduct = ref('Од. вим.')
-   const barcodeProduct = ref('Штрихкод')
-   const purchasePrice = ref('Штрихкод')
-   const retailrice = ref('Штрихкод')
+const modalInput = reactive({
+  nameValue: '',
+  codeValue: '',
+  unitValue: '',
+  barcodeValue: '',
+  purchasePrice: '1',
+  retailPrice: '1'
+});
+
+// Object.keys(modalInput).forEach((key) => {
+//   // Отримати доступ до значення та ключа
+//   const value = modalInput[key];
+//   const fieldName = key;
+
+//   // Виконати певні дії для кожного поля
+//   console.log(fieldName, value);
+
+const processNameValue = (newValue) => {
+  modalInput.nameValue = newValue.replace(/^\s+/, '').replace(/ {2}/g, ' ');
+  if (props.modalActive === false) {
+    newValue = ''
+  }
+};
+
+watch(() => modalInput.nameValue, (newValue) => {
+    processNameValue(newValue);
+});
 
 </script>
 

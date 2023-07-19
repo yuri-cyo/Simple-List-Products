@@ -65,7 +65,7 @@
                     <td>{{ poduct.units }}</td>
                     <td>{{ poduct.barcode }}</td>
                     <td>{{ poduct.purchasePrice }}</td>
-                    <td>{{ poduct.retailrice }}</td>
+                    <td>{{ poduct.retailPrice }}</td>
                 </tr>
             </tbody>
         </table>
@@ -82,7 +82,7 @@ const poducts = reactive([
     units: 'шт',
     barcode: 'шт',
     purchasePrice: '12',
-    retailrice: '21',
+    retailPrice: '21',
     },
     {
     code: '0002',
@@ -90,7 +90,7 @@ const poducts = reactive([
     units: 'шт',
     barcode: 'шт',
     purchasePrice: '12',
-    retailrice: '22',
+    retailPrice: '22',
     },
 ])
 
