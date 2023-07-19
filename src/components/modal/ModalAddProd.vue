@@ -162,7 +162,7 @@ import { ref, toRef } from 'vue';
 }
 label {
     font-weight: 500;
-    min-width: 20%;
+    width: 100px;
     text-align: end;
 }
 input {
@@ -180,12 +180,22 @@ select {
 .unit-code-wrapper{
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     border-bottom: 1px solid $strokeMenu;
 }
 .input-unit-code-wrapper {
-    flex-direction: column;
+    // flex-direction: column;
     border: none;
+    label {
+        width: 100px;
+        white-space: nowrap;
+    }
+    input {
+        width: 9em;
+    }
+    select {
+        width: 9em;
+    }
 
 }
 .price-wrapper {
@@ -216,8 +226,9 @@ select {
         border-bottom: 1px solid $bgMenu;
         padding: rem(10);
         margin-bottom: -1px;
-        z-index: 2;
+        z-index: 3;
         position: relative;
+        // background-color: #a41212;
     }
 }
 .price-input-wrapper {
