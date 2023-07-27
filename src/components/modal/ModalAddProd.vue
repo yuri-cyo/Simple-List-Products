@@ -11,11 +11,14 @@
                             <span class="icon-product"></span>
                             <h4 class="title-text">Картка товару: {{ modalInput.nameValue }}</h4>
                         </div>
+                        <BtnCrossClose>
+                            <button class="btn" type="button" @click="buttonClose"></button>
+                        </BtnCrossClose>
                     </div>
                     <div class="modal-body">
                     <!-- <div class="inputs-container"> -->
                         <div class="input-wrapper">
-                            <Label>Назва</Label>
+                            <label>Назва</label>
                             <InputComponent >
                                 <input 
                                     type="text"
@@ -26,7 +29,7 @@
                         </div>
                         <div class="unit-code-wrapper">
                             <div class="input-wrapper input-unit-code-wrapper">
-                                <Label>Код товару</Label>
+                                <label>Код товару</label>
                                 <InputComponent>
                                     <input
                                         type="text"
@@ -36,15 +39,15 @@
                                 </InputComponent>
                             </div>
                             <div class="input-wrapper input-unit-code-wrapper">
-                                <Label>Од. вим.</Label>
-                                <SelectComponent>
-                                    <option value="">шт</option>
-                                    <option value="">кг</option>
-                                </SelectComponent>
+                                <label>Од. вим.</label>
+                                <select v-model="modalInput.unitValue">
+                                    <option value="шт">шт</option>
+                                    <option value="кг">кг</option>
+                                </select>
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <Label>Штрихкод</Label>
+                            <label>Штрихкод</label>
                             <InputComponent>
                                 <input
                                     type="text"
@@ -53,12 +56,12 @@
                                 >
                             </InputComponent>
                             </div>
-                        <div class="price-wrapper">
+                        <!-- <div class="price-wrapper">
                             <div class="price-title">
                                 <h3>Ціна</h3>
                             </div>
                             <div class="input-wrapper price-input-wrapper">
-                                <Label>Закупка</Label>
+                                <label>Закупка</label>
                                 <InputComponent>
                                     <input
                                         type="text"
@@ -68,20 +71,23 @@
                                 </InputComponent>
                             </div>
                             <div class="input-wrapper price-input-wrapper">
-                                <Label>Роздрібна</Label>
+                                <label>Роздрібна</label>
                                 <InputComponent>
                                     <input
                                         type="text"
                                         v-model="modalInput.retailPrice"
+                                        :input="validationInpust"
                                         placeholder=""
                                     >
                                 </InputComponent>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- </div> -->
-                        <div class="btns-wrapper">
-                            <slot></slot>
-                        </div>
+                            <div class="btns-wrapper">
+                                <p v-if="errorSaveProduct">ПОМИЛКА!!! Заповніть всі поля!</p>
+                                <BtnClose @click="buttonClose">Закрити</BtnClose>
+                                <BtnSave @click="saveProduct">Зберегти</BtnSave>
+                            </div>
                     
                     </div>
                 </div>
@@ -91,47 +97,60 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, reactive } from 'vue';
-    const props = defineProps({
-        modalActive: {
-            type: Boolean
-        }
-    })
+import { ref, reactive } from 'vue';
+// import BtnCrossСlose from '../Ui/btnCrossСlose.vue';
+    const props = defineProps(['modalActive'])
 
-// const nameValue = ref('')
-// const codeValue = ref('')
-// const unitValue = ref('')
-// const barcodeValue = ref('')
-// const purchasePrice = ref('0')
-// const retailPrice = ref('0')
 
 const modalInput = reactive({
-  nameValue: '',
-  codeValue: '',
-  unitValue: '',
-  barcodeValue: '',
-  purchasePrice: '1',
-  retailPrice: '1'
+    nameValue: '',
+    codeValue: '',
+    unitValue: 'шт',
+    barcodeValue: '',
+    // purchasePrice: '0',
+    // retailPrice: '0'
 });
+const errorSaveProduct = ref(false)
 
-// Object.keys(modalInput).forEach((key) => {
-//   // Отримати доступ до значення та ключа
-//   const value = modalInput[key];
-//   const fieldName = key;
+function clearInputs() {
+    modalInput.nameValue = ''
+    modalInput.codeValue = ''
+    modalInput.unitValue = 'шт'
+    modalInput.barcodeValue = ''
+    // modalInput.purchasePrice = '0'
+    // modalInput.retailPrice = '0'
+}
+const emit = defineEmits(['btnClose', 'sendSaveProduct', 'objSaveProduct'])
 
-//   // Виконати певні дії для кожного поля
-//   console.log(fieldName, value);
 
-const processNameValue = (newValue) => {
-  modalInput.nameValue = newValue.replace(/^\s+/, '').replace(/ {2}/g, ' ');
-  if (props.modalActive === false) {
-    newValue = ''
-  }
-};
+function buttonClose() {
+    emit('btnClose')
+    errorSaveProduct.value = false
+    clearInputs()
+}
 
-watch(() => modalInput.nameValue, (newValue) => {
-    processNameValue(newValue);
-});
+function allValueInputs() {
+
+}
+
+function saveProduct() {
+    // emit('sendSaveProduct')
+    if (modalInput.nameValue !== '' 
+    && modalInput.codeValue !== ''
+    && modalInput.barcodeValue !== '') {
+            // errorSaveProduct.value = false
+            // console.log(JSON.stringify(modalInput))
+            // const newValue = reactive(modalInput);
+            emit('objSaveProduct', modalInput)
+            buttonClose()
+        } else {
+            errorSaveProduct.value = true
+            setTimeout(() => {
+                errorSaveProduct.value = false
+            }, 5000);
+        }
+}
+
 
 </script>
 
@@ -257,7 +276,8 @@ select {
 }
 .price-title {
     grid-row: 1; /* розташування блоку1 в першому рядку */
-    grid-column: 1 / span 3; /* розтягнення блоку1 на всю ширину */
+    grid-column: 1 / span 3;
+    background-color: $price-container-bg;
     // color: $icon-edit;
     // display: flex;
     // justify-content:center;align-items: center;
@@ -269,7 +289,7 @@ select {
         // background-color: $coolorDarkTxt;
         // border-radius: rem(20) 0 0 rem(20);
         border: 1px solid $strokeMenu;
-        border-bottom: 1px solid $bgMenu;
+        border-bottom: none;
         padding: rem(10);
         margin-bottom: -1px;
         z-index: 3;
@@ -282,6 +302,9 @@ select {
     display: flex;
     border: none;
     padding-bottom: rem(15);
+    z-index: 2;
+    position: relative;
+    background-color: $price-container-bg;
     // background-color: #ffea002a;
     // border-top: 1px solid $strokeMenu;
     // border-top: 1px solid $strokeMenu;
@@ -300,10 +323,23 @@ select {
 }
 .btns-wrapper {
     display: flex;
+    align-items: center;
     width: 100%;
     padding-top: rem(20);
     justify-content: flex-end;
     gap: rem(10);
+
+    p {
+        color: $icon-del;
+        margin: 0 auto;
+        // color: #fff;
+        // background-color: $icon-del;
+        box-shadow: $btn-shadow $icon-del;
+        font-weight: bold;
+        padding: rem(5);
+        border-radius: rem(10);
+        border: 1px solid $icon-del;
+    }
 }
 
 </style>

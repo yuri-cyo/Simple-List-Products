@@ -1,5 +1,4 @@
 <template>
-	<!-- <div class="page"> -->
 		<Header class="header-component">
 			<template 
 				v-slot:default
@@ -12,7 +11,7 @@
 				<ul class="btns-actions">
 					<li 
 						class="icon icon-add-product btn-add-product"
-						@click="addingProduct"
+						@click="closeModal"
 					>
 					</li>
 					<li 
@@ -28,17 +27,16 @@
 		</Header>
 			<ModalAddProd 
 				:modalActive="modalActive"
-				@close="addingProduct"
+				@btnClose="closeModal"
+				@objSaveProduct="objSP"
 			>
-				<BtnClose @click="addingProduct">Закрити</BtnClose>
-				<BtnSave>Зберегти</BtnSave>
 			</ModalAddProd>
 			<Table></Table>
-	<!-- </div> -->
+			<p>{{ state }}</p>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 	const props = defineProps({
 		productName: {
 		type: String,
@@ -47,9 +45,14 @@ import { ref } from 'vue';
 	});
 
 	const modalActive = ref(false)
-
-	const addingProduct = ()=> {
+	const closeModal = ()=> {
 		modalActive.value = !modalActive.value
+	}
+	let state = {}
+
+	function objSP(newValueProduct) {
+		state = newValueProduct
+		// alert(JSON.stringify(objSaveProduct))
 	}
 </script>
 
@@ -74,9 +77,9 @@ import { ref } from 'vue';
 	padding-right: $pd-page;
 	.icon-del-icon {
 		color: $icon-del;
+		box-shadow: $btn-shadow $icon-del;
+		border-radius: 100vh;
 		&:hover {
-			box-shadow: 0px 0px 10px $icon-del;
-			border-radius: 100vh;
 			filter: brightness(0.9);
 			transition: all 0.3s ease 0s;
 
@@ -87,9 +90,9 @@ import { ref } from 'vue';
 	}
 	.icon-add-product {
 		color: $icon-add;
+		box-shadow: $btn-shadow $icon-add;
+		border-radius: 100vh;
 		&:hover {
-			box-shadow: 0px 0px 10px $icon-add;
-			border-radius: 100vh;
 			filter: brightness(0.9);
 			transition: all 0.3s ease 0s;
 			&::after {
@@ -99,9 +102,9 @@ import { ref } from 'vue';
 	}
 	.icon-edit-icon {
 		color: $icon-edit;
+		box-shadow: $btn-shadow $icon-edit;
+		border-radius: 100vh;
 		&:hover {
-			box-shadow: 0px 0px 10px $icon-edit;
-			border-radius: 100vh;
 			filter: brightness(0.9);
 			transition: all 0.3s ease 0s;
 

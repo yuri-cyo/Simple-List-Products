@@ -132,7 +132,10 @@ $t-transition-menu: .3s;
 		width: rem(30);
 	}
 		li .router-link {
-			display: block;
+			// display: block;
+			display: flex;
+			// justify-content:center;
+			align-items: center;
 			color: $primaryColor;
 			align-items: center;
 			font-size: rem(24);

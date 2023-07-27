@@ -7,24 +7,8 @@
                     <th>Назва</th>
                     <th>Од. вим.</th>
                     <th>Штрихкод</th>
-                    <th>Закупка</th>
-                    <th>Роздрібна</th>
                 </tr>
                 <tr>
-                    <th>
-                        <InputComponent>
-                            <input 
-                                type="text"
-                            >
-                        </InputComponent>
-                    </th>
-                    <th>
-                        <InputComponent>
-                            <input 
-                                type="text"
-                            >
-                        </InputComponent>
-                    </th>
                     <th>
                         <InputComponent>
                             <input 
@@ -64,8 +48,6 @@
                     <td>{{ poduct.name }}</td>
                     <td>{{ poduct.units }}</td>
                     <td>{{ poduct.barcode }}</td>
-                    <td>{{ poduct.purchasePrice }}</td>
-                    <td>{{ poduct.retailPrice }}</td>
                 </tr>
             </tbody>
         </table>
@@ -75,22 +57,20 @@
 <script setup>
 import { reactive } from 'vue';
 
+const props = defineProps(['state'])
+
 const poducts = reactive([
     {
-    code: '0001',
+    code: 1,
     name: 'Pepsi Black 1л',
     units: 'шт',
-    barcode: 'шт',
-    purchasePrice: '12',
-    retailPrice: '21',
+    barcode: '123123123124',
     },
     {
-    code: '0002',
+    code: 2,
     name: 'Pepsi Black 1л',
     units: 'шт',
-    barcode: 'шт',
-    purchasePrice: '12',
-    retailPrice: '22',
+    barcode: '1241234123123123',
     },
 ])
 

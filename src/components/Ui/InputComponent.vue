@@ -1,9 +1,5 @@
 <template>
     <div>
-        <!-- <input 
-            v-model="inputValue"
-            type="text"
-        > -->
         <slot class="slot-content"></slot>
     </div>
 </template>
@@ -11,17 +7,8 @@
 <script setup>
 import { ref } from 'vue';
 
-const inputValue = ref('');
 
-// const trimmedValue = computed(() => {
-//   return inputValue.value.trim();
-// });
-// const props = defineProps({
-//     nameValue: {
-//         type: String
-//     }
-// })
-// const nameValueRef = toRef(props);
+
 
 </script>
 
@@ -33,7 +20,7 @@ div {
 :deep input {
         // color: #04888c;
         padding: rem(5);
-        border: 1px solid $strokeMenu;
+        border: 1px solid hsla(0, 0%, 5%, 0.589);
         border-radius: rem(5);
         min-width: 100%;
         &:focus {
