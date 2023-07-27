@@ -23,7 +23,11 @@
                                 <input 
                                     type="text"
                                     v-model="modalInput.nameValue"
-                                    placeholder="Назва"
+                                    :placeholder="modalPlaceholder.namePlaceholder"
+                                    @keyup.enter="saveProduct"
+                                    @keyup.esc="buttonClose"
+                                    @value="sendVar.barcode.name"
+                                    :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
                                 >
                             </InputComponent>
                         </div>
@@ -34,13 +38,22 @@
                                     <input
                                         type="text"
                                         v-model="modalInput.codeValue"
-                                        placeholder="Код товару"
+                                        :placeholder="modalPlaceholder.codePlaceholder"
+                                        @keyup.enter="saveProduct"
+                                        @keyup.esc="buttonClose"
+                                        @value="sendVar.code"
+                                        :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
                                     >
                                 </InputComponent>
                             </div>
                             <div class="input-wrapper input-unit-code-wrapper">
                                 <label>Од. вим.</label>
-                                <select v-model="modalInput.unitValue">
+                                <select 
+                                    v-model="modalInput.unitValue"
+                                    @keyup.esc="buttonClose"
+                                    @value="sendVar.units"
+                                    
+                                >
                                     <option value="шт">шт</option>
                                     <option value="кг">кг</option>
                                 </select>
@@ -52,7 +65,11 @@
                                 <input
                                     type="text"
                                     v-model="modalInput.barcodeValue"
-                                    placeholder="Штрихкод"
+                                    :placeholder="modalPlaceholder.barcodePlaceholder"
+                                    @keyup.enter="saveProduct"
+                                    @keyup.esc="buttonClose"
+                                    @value="sendVar.barcode"
+                                    :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
                                 >
                             </InputComponent>
                             </div>
@@ -84,9 +101,10 @@
                         </div> -->
                         <!-- </div> -->
                             <div class="btns-wrapper">
-                                <p v-if="errorSaveProduct">ПОМИЛКА!!! Заповніть всі поля!</p>
                                 <BtnClose @click="buttonClose">Закрити</BtnClose>
-                                <BtnSave @click="saveProduct">Зберегти</BtnSave>
+                                <BtnSave 
+                                    @click="saveProduct"
+                                >Зберегти</BtnSave>
                             </div>
                     
                     </div>
@@ -97,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, watch, toRefs } from 'vue';
 // import BtnCrossСlose from '../Ui/btnCrossСlose.vue';
     const props = defineProps(['modalActive'])
 
@@ -110,52 +128,92 @@ const modalInput = reactive({
     // purchasePrice: '0',
     // retailPrice: '0'
 });
+const modalPlaceholder = reactive({
+    namePlaceholder: 'Назва товару',
+    codePlaceholder: 'Код товару',
+    barcodePlaceholder: 'Штрихкод товару',
+});
 const errorSaveProduct = ref(false)
+const errorMessage = ref('')
 
 function clearInputs() {
     modalInput.nameValue = ''
     modalInput.codeValue = ''
     modalInput.unitValue = 'шт'
     modalInput.barcodeValue = ''
-    // modalInput.purchasePrice = '0'
-    // modalInput.retailPrice = '0'
 }
-const emit = defineEmits(['btnClose', 'sendSaveProduct', 'objSaveProduct'])
+function addErrorPlaceholder() {
+    errorSaveProduct.value = true
+    modalPlaceholder.namePlaceholder = 'Пусте поле вводу',
+    modalPlaceholder.codePlaceholder = 'Пусте поле вводу',
+    modalPlaceholder.barcodePlaceholder = 'Пусте поле вводу'
+}
+function removeErrorPlaceholder() {
+    errorSaveProduct.value = false
+    modalPlaceholder.namePlaceholder = 'Назва товару',
+    modalPlaceholder.codePlaceholder = 'Код товару',
+    modalPlaceholder.barcodePlaceholder = 'Штрихкод товару'
+}
+
+const emit = defineEmits(['btnClose', 'objSaveProduct'])
 
 
 function buttonClose() {
     emit('btnClose')
     errorSaveProduct.value = false
+    removeErrorPlaceholder()
     clearInputs()
 }
 
-function allValueInputs() {
-
-}
-
 function saveProduct() {
-    // emit('sendSaveProduct')
+    // console.log("Sveeee");
+    const sendVar = {
+        code: modalInput.codeValue,
+        name: modalInput.nameValue,
+        units: modalInput.unitValue,
+        barcode: modalInput.barcodeValue
+    }
+    if (modalInput.nameValue == '' 
+    || modalInput.codeValue == ''
+    || modalInput.barcodeValue == '') {
+        addErrorPlaceholder()
+    }
     if (modalInput.nameValue !== '' 
     && modalInput.codeValue !== ''
     && modalInput.barcodeValue !== '') {
-            // errorSaveProduct.value = false
-            // console.log(JSON.stringify(modalInput))
-            // const newValue = reactive(modalInput);
-            emit('objSaveProduct', modalInput)
-            buttonClose()
-        } else {
-            errorSaveProduct.value = true
-            setTimeout(() => {
-                errorSaveProduct.value = false
-            }, 5000);
-        }
+        console.log(sendVar);
+        emit('objSaveProduct', sendVar)
+        buttonClose()
+    } else {
+        addErrorPlaceholder()
+    }
 }
+
+const computedValue = watch(()=> {
+    if (modalInput.nameValue !== '' 
+    || modalInput.codeValue !== ''
+    || modalInput.barcodeValue !== '') {
+        removeErrorPlaceholder()
+    }
+    if (modalInput.nameValue !== '' 
+    && modalInput.codeValue !== ''
+    && modalInput.barcodeValue !== '') {
+        removeErrorPlaceholder()
+    }
+})
 
 
 </script>
 
 <style lang="scss" scoped>
 
+.errorClassPlaceholder {
+    &::placeholder {
+        color: $icon-del;
+    }
+    border-color: $icon-del;
+    // box-shadow: inset 0 0 5px $icon-del;
+}
 .modal-fone {
     position: fixed;
     background-color: #53535350;

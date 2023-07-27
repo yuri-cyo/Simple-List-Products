@@ -41,13 +41,13 @@
             </thead>
             <tbody>
                 <tr
-                v-for="poduct in poducts"
-                :key="poduct.code"
+                v-for="product in products"
+                :key="product.code"
                 class="tr-body">
-                    <td>{{ poduct.code }}</td>
-                    <td>{{ poduct.name }}</td>
-                    <td>{{ poduct.units }}</td>
-                    <td>{{ poduct.barcode }}</td>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.units }}</td>
+                    <td>{{ product.barcode }}</td>
                 </tr>
             </tbody>
         </table>
@@ -55,11 +55,11 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, watch, computed } from 'vue';
 
-const props = defineProps(['state'])
+const props = defineProps(['stateNewProduct'])
 
-const poducts = reactive([
+const products = reactive([
     {
     code: 1,
     name: 'Pepsi Black 1л',
@@ -70,11 +70,31 @@ const poducts = reactive([
     code: 2,
     name: 'Pepsi Black 1л',
     units: 'шт',
-    barcode: '1241234123123123',
+    barcode: '1241234123123123'
     },
+    {
+    code: 3,
+    name: 'Pepsi Black 1л',
+    units: 'шт',
+    barcode: '1241234123123123'
+    }
 ])
 
-// const props = defineProps({isModal})
+const addProductOnTable = watch(() => {
+    console.log(props.stateNewProduct);
+    if (props.stateNewProduct
+            && props.stateNewProduct.code
+            && props.stateNewProduct.name
+            && props.stateNewProduct.barcode
+        ) {
+        products.push({
+            code: props.stateNewProduct.code,
+            name: props.stateNewProduct.name,
+            units: props.stateNewProduct.units,
+            barcode: props.stateNewProduct.barcode
+        });
+    }
+});
 
 </script>
     
@@ -103,12 +123,11 @@ const poducts = reactive([
     }
     th {
         background-color: $color-th;
-
-        
     }
     tr:nth-child(odd) {
         background-color: $color-tr-odd;
     }
+
     .tr-body {
         position: relative;
         &:nth-child(even) {

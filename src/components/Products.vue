@@ -31,12 +31,11 @@
 				@objSaveProduct="objSP"
 			>
 			</ModalAddProd>
-			<Table></Table>
-			<p>{{ state }}</p>
+			<Table :stateNewProduct="stateNewProduct"></Table>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 	const props = defineProps({
 		productName: {
 		type: String,
@@ -48,12 +47,26 @@ import { ref, reactive } from 'vue';
 	const closeModal = ()=> {
 		modalActive.value = !modalActive.value
 	}
-	let state = {}
+	// let stateNewProduct = {}
+	const stateNewProduct = ref({})
 
+	// const stateNewProduct2 = computed(()=> {
+	// 	stateNewProduct
+	// })
+
+	
 	function objSP(newValueProduct) {
-		state = newValueProduct
+		stateNewProduct.value = newValueProduct
 		// alert(JSON.stringify(objSaveProduct))
 	}
+
+	// stateNewProduct = [{
+    // code: stateNewProduct.codeValue,
+    // name: stateNewProduct.nameValue,
+    // units: stateNewProduct.unitValue,
+    // barcode: stateNewProduct.barcodeValue,
+    // }]
+
 </script>
 
 <style lang="scss" scoped>
