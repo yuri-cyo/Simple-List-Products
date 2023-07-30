@@ -21,7 +21,6 @@
 
 <style lang="scss" scoped>
 .page {
-
 }
 
 

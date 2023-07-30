@@ -259,14 +259,16 @@ const computedValue = watch(()=> {
     padding-bottom: $pd-page;
     border-bottom: 1px solid $strokeMenu;
     display: flex;
-    // justify-content:center;
+    width: 100%;
+    justify-content:space-between;
     align-items: center;
 }
 .title-modal {
     display: flex;
     gap: rem(5);
     // width: calc(100% - 20px);
-    width: 100%;
+    width: 94%;
+    // flex: 1 1 auto;
     // text-overflow: ellipsis;
 }
 
@@ -275,7 +277,6 @@ const computedValue = watch(()=> {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    // max-width: 100%;
 }
 .modal-body {
     display: flex;
