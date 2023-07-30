@@ -26,8 +26,8 @@
                                     :placeholder="modalPlaceholder.namePlaceholder"
                                     @keyup.enter="saveProduct"
                                     @keyup.esc="buttonClose"
-                                    @value="sendVar.barcode.name"
                                     :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
+                                    maxlength="70"
                                 >
                             </InputComponent>
                         </div>
@@ -41,8 +41,8 @@
                                         :placeholder="modalPlaceholder.codePlaceholder"
                                         @keyup.enter="saveProduct"
                                         @keyup.esc="buttonClose"
-                                        @value="sendVar.code"
                                         :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
+                                        maxlength="6"
                                     >
                                 </InputComponent>
                             </div>
@@ -51,7 +51,6 @@
                                 <select 
                                     v-model="modalInput.unitValue"
                                     @keyup.esc="buttonClose"
-                                    @value="sendVar.units"
                                     
                                 >
                                     <option value="шт">шт</option>
@@ -68,8 +67,8 @@
                                     :placeholder="modalPlaceholder.barcodePlaceholder"
                                     @keyup.enter="saveProduct"
                                     @keyup.esc="buttonClose"
-                                    @value="sendVar.barcode"
                                     :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
+                                    maxlength="15"
                                 >
                             </InputComponent>
                             </div>
@@ -128,6 +127,16 @@ const modalInput = reactive({
     // purchasePrice: '0',
     // retailPrice: '0'
 });
+
+const validationInpust = watch(()=> {
+    const onlyNumbersRegex = /[^\d]/g;
+    const delFirstSpaceRegex = /^\s+/g;
+    const onlyOneSpaceRegex = / {2}/g;
+    modalInput.nameValue = modalInput.nameValue.replace(delFirstSpaceRegex, "").replace(onlyOneSpaceRegex, " ");
+    modalInput.codeValue = modalInput.codeValue.replace(onlyNumbersRegex, "");
+    modalInput.barcodeValue = modalInput.barcodeValue.replace(onlyNumbersRegex, "");
+
+})
 const modalPlaceholder = reactive({
     namePlaceholder: 'Назва товару',
     codePlaceholder: 'Код товару',
@@ -167,6 +176,7 @@ function buttonClose() {
 
 function saveProduct() {
     // console.log("Sveeee");
+    modalInput.nameValue = modalInput.nameValue.trim()
     const sendVar = {
         code: modalInput.codeValue,
         name: modalInput.nameValue,
@@ -234,10 +244,12 @@ const computedValue = watch(()=> {
     padding: $pd-page;
     transform: translate(-50%, -50%);
 
-    background-color: $bgMenu;
-
+    
     // z-index: 100;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    // background-color: $bgMenu;
+    background-color: #f1f2f6a4;
+    
     border-radius: rem(20);
     border: 5px solid rgba(14, 14, 14, 0.413);
     overflow: hidden;

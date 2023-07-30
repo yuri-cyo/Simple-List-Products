@@ -61,14 +61,15 @@ const trimInputMixin = {
 
 .content-container {
   // padding: 0 rem(10);
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
+  padding: $pd-page;
+  // display: flex;
+  // flex-direction: column;
+  // flex: 1 1 auto;
+  margin-top: 43px;
   // width: 100%;
-  // overflow-x: scroll;
-  overflow: scroll;
-  height: 100vh;
+  height: calc(100vh - $header-h);
   width: calc(100vw - 300px);
+  overflow: auto;
   position: relative;
 }
 

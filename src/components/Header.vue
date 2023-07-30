@@ -30,6 +30,7 @@
 .header-wrapper {
     position: fixed;
     right: 0;
+    z-index: 1000;
     // position: sticky;
     top: 0;
     left: $w-menu;
@@ -37,6 +38,7 @@
     // min-width: 100vw;
     
     min-width: 400px;
+    height: $header-h;
     // flex: 0 1 100%;
     flex-wrap: wrap;
     row-gap: rem(7);

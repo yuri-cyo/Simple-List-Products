@@ -72,7 +72,7 @@ import { ref, reactive, computed } from 'vue';
 <style lang="scss" scoped>
 
 .header-component {
-	margin-top: rem(52);
+	// margin-top: rem(52);
 }
 .title-wrapper {
 	gap: rem(5);
