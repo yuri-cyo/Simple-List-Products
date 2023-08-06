@@ -1,9 +1,8 @@
 import { createApp } from 'vue'
 import '@/style.scss'
 import router from './router.js'
-// import Vue from 'vue'
 import App from './App.vue';
-// import store from './store.js';
+import store from '@/store.js';
 
 import Menu from './components/Menu.vue';
 import Header from './components/Header.vue';
@@ -17,13 +16,7 @@ import InputComponent from './components/Ui/InputComponent.vue';
 import SelectComponent from './components/Ui/SelectComponent.vue';
 import BtnCrossClose from './components/Ui/BtnCrossClose.vue';
 
-// new Vue({
-//     store,
-//     render: h=> h(App),
-// }).$mount('#app')
-
 const app = createApp(App)
-
 
 const components = [
     { name: 'Products', component: Products },
@@ -43,6 +36,6 @@ components.forEach(({ name, component }) => {
     app.component(name, component);
 });
 
+app.use(store)
 app.use(router)
 app.mount('#app').$nextTick(() => postMessage({ payload: 'removeLoading' }, '*'))
-// createApp(App).mount('#app').$nextTick(() => postMessage({ payload: 'removeLoading' }, '*'))

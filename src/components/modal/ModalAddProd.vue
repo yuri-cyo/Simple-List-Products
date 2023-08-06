@@ -135,7 +135,6 @@ const validationInpust = watch(()=> {
     modalInput.nameValue = modalInput.nameValue.replace(delFirstSpaceRegex, "").replace(onlyOneSpaceRegex, " ");
     modalInput.codeValue = modalInput.codeValue.replace(onlyNumbersRegex, "");
     modalInput.barcodeValue = modalInput.barcodeValue.replace(onlyNumbersRegex, "");
-
 })
 const modalPlaceholder = reactive({
     namePlaceholder: 'Назва товару',
@@ -183,14 +182,16 @@ function saveProduct() {
         units: modalInput.unitValue,
         barcode: modalInput.barcodeValue
     }
-    if (modalInput.nameValue == '' 
-    || modalInput.codeValue == ''
-    || modalInput.barcodeValue == '') {
+    if (modalInput.nameValue.length < 4 
+    || modalInput.codeValue.length < 4
+    || modalInput.barcodeValue.length < 4) {
         addErrorPlaceholder()
+        
     }
-    if (modalInput.nameValue !== '' 
-    && modalInput.codeValue !== ''
-    && modalInput.barcodeValue !== '') {
+    if (modalInput.nameValue.length >= 4 
+    && modalInput.codeValue.length >= 4
+    && modalInput.barcodeValue.length >= 4) {
+        console.log(modalInput.codeValue.length);
         console.log(sendVar);
         emit('objSaveProduct', sendVar)
         buttonClose()
@@ -226,7 +227,8 @@ const computedValue = watch(()=> {
 }
 .modal-fone {
     position: fixed;
-    background-color: #53535350;
+    background-color: #53535370;
+    // backdrop-filter: blur(4px);
     left: 0;
     right: 0;
     top: 0;
@@ -246,9 +248,9 @@ const computedValue = watch(()=> {
 
     
     // z-index: 100;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
     // background-color: $bgMenu;
-    background-color: #f1f2f6a4;
+    background-color: #ffffffb8;
     
     border-radius: rem(20);
     border: 5px solid rgba(14, 14, 14, 0.413);

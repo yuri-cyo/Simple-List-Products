@@ -20,9 +20,11 @@
 					</li>
 					<li 
 						class="icon icon-del-icon btn-del-product"
+						@click="btnDelProduct"
 					>
 					</li>
 				</ul>
+				<span> {{ $store.state.count }}</span>
 			</template>
 		</Header>
 			<ModalAddProd 
@@ -31,11 +33,15 @@
 				@objSaveProduct="objSP"
 			>
 			</ModalAddProd>
-			<Table :stateNewProduct="stateNewProduct"></Table>
+			<Table 
+				:stateNewProduct="stateNewProduct"
+			></Table>
 </template>
 
 <script setup>
 import { ref, reactive, computed } from 'vue';
+import { useStore } from 'vuex';
+const store = useStore()
 	const props = defineProps({
 		productName: {
 		type: String,
@@ -43,29 +49,23 @@ import { ref, reactive, computed } from 'vue';
 		}
 	});
 
+
 	const modalActive = ref(false)
 	const closeModal = ()=> {
 		modalActive.value = !modalActive.value
 	}
-	// let stateNewProduct = {}
+	const delElem = ref(null)
+
+	const btnDelProduct = ()=> {
+		store.state.count++
+		// store.commit('increment')
+}
+
 	const stateNewProduct = ref({})
 
-	// const stateNewProduct2 = computed(()=> {
-	// 	stateNewProduct
-	// })
-
-	
 	function objSP(newValueProduct) {
 		stateNewProduct.value = newValueProduct
-		// alert(JSON.stringify(objSaveProduct))
 	}
-
-	// stateNewProduct = [{
-    // code: stateNewProduct.codeValue,
-    // name: stateNewProduct.nameValue,
-    // units: stateNewProduct.unitValue,
-    // barcode: stateNewProduct.barcodeValue,
-    // }]
 
 </script>
 

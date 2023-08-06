@@ -1,4 +1,4 @@
-<template>
+<template @btnDelProduct="btnDelProduct">
     <div class="table-container">
         <table class="table">
             <thead v-show="false">
@@ -41,15 +41,17 @@
             </thead>
             <tbody>
                 <tr
-                v-for="(product, index) in products"
-                :key="index + product.code"
-                @click="contextMenu"
+                v-for="(products, index) in products"
+                :key="products.product.code"
+                @click="contextMenu(index, product)"
+                :class="{ 'isSelected': index === selectedProduct }"
                 class="tr-body">
-                    <td>{{ product.code }}</td>
+                    <td data-code>{{ products.code }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.units }}</td>
                     <td>{{ product.barcode }}</td>
                 </tr>
+                <!-- <p>{{btnDelProduct}}</p> -->
             </tbody>
         </table>
     </div>
@@ -57,221 +59,245 @@
 
 <script setup>
 import { reactive, watch, computed, ref } from 'vue';
+import { useStore } from 'vuex';
+const store = useStore();
+const products = ref(store.state.product)
 
 const props = defineProps(['stateNewProduct'])
+// const emits = defineEmits(['btnDelProduct'])
 
-const products = reactive([
-    {
-    code: 1,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '123123123124',
-    },
-    {
-    code: 2,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-    {
-    code: 3,
-    name: 'Pepsi Black 1л',
-    units: 'шт',
-    barcode: '1241234123123123'
-    },
-])
+// const products = reactive([
+//     {
+//     code: 1,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '123123123124',
+//     },
+//     {
+//     code: 2,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+//     {
+//     code: 3,
+//     name: 'Pepsi Black 1л',
+//     units: 'шт',
+//     barcode: '1241234123123123'
+//     },
+// ])
 
 const addProductOnTable = watch(() => {
     console.log(props.stateNewProduct);
+    
     if (props.stateNewProduct
             && props.stateNewProduct.code
             && props.stateNewProduct.name
             && props.stateNewProduct.barcode
         ) {
-        products.push({
+        store.state.products.push({
             code: props.stateNewProduct.code,
             name: props.stateNewProduct.name,
             units: props.stateNewProduct.units,
             barcode: props.stateNewProduct.barcode
         });
+
     }
 });
-const togleContextMenu = ref(false)
-function contextMenu(event) {
-    event.stopPropagation();
-    const childElement = event.currentTarget;
-    togleContextMenu.value = !togleContextMenu.value
-    const parentElement = event.target.parentElement;
-    parentElement.childElement
-    if (togleContextMenu) {
-        childElement.classList.toggle('isSelected')
-        childElement.dataset.isSelected = togleContextMenu.value
-    } 
-    console.log(event.target);
-    console.log(togleContextMenu.value);
-    // console.log(parentElement.Node.childElement);
+
+function btnDelProduct() {
+    console.log('btnDelProduct');
+}
+
+const selectedProduct = ref(null)
+function contextMenu(index, product) {
+    selectedProduct.value = index
+    // event.stopPropagation();
+    // const childElement = event.currentTarget;
+    // const dataSelected = childElement.dataset.isSelected;
+    // const parentElement = event.target.parentElement;
+
+    // const childElement = childComponentRef.value.$el;
+
+    // const elementWithDataCode = childElement.querySelector('[data-code="your-data-code"]');
+    // childElement.classList.toggle('isSelected')
+    console.log(index);
+    console.log(product);
+    
+
+    // const isSelected = childElement.getAttribute('data-selected') === 'true';
+  
+//   if (!isSelected) {
+//     childElement.setAttribute('data-selected', 'true');
+//     childElement.classList.add('isSelected');
+//     togleContextMenu.value = true
+//   } else {
+//     childElement.setAttribute('data-selected', 'false');
+//     childElement.classList.remove('isSelected');
+//     togleContextMenu.value = false
+//   }
 }
 
 function removeProduct(event) {
