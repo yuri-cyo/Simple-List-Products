@@ -24,9 +24,9 @@
 <script setup>
 import { ref } from 'vue';
 
-const productName = 'Товари';
-const docName = 'Документи'
-const setName = 'Опції'
+// const productName = 'Товари';
+// const docName = 'Документи'
+// const setName = 'Опції'
 
 const trimInputMixin = {
   methods: {
@@ -68,7 +68,7 @@ const trimInputMixin = {
   margin-top: 43px;
   // width: 100%;
   height: calc(100vh - $header-h);
-  width: calc(100vw - 300px);
+  width: calc(100vw - $w-menu);
   overflow: auto;
   position: relative;
 }

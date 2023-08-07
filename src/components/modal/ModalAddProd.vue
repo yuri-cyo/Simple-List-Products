@@ -1,123 +1,120 @@
 <template>
     <div>
-        
-            <div 
-                class="modal-fone"
-                v-show="modalActive"
-            >
-                <div class="modal-wrapper">
-                    <div class="modal-header">
-                        <div class="title-modal">
-                            <span class="icon-product"></span>
-                            <h4 class="title-text">Картка товару: {{ modalInput.nameValue }}</h4>
-                        </div>
-                        <BtnCrossClose>
-                            <button class="btn" type="button" @click="buttonClose"></button>
-                        </BtnCrossClose>
+        <div 
+            class="modal-fone"
+            v-show="store.state.modal.active"
+        >
+            <div class="modal-wrapper">
+                <div class="modal-header">
+                    <div class="title-modal">
+                        <span class="icon-product"></span>
+                        <h4 class="title-text">Картка товару: {{ modalInput.nameValue }}</h4>
                     </div>
-                    <div class="modal-body">
-                    <!-- <div class="inputs-container"> -->
-                        <div class="input-wrapper">
-                            <label>Назва</label>
-                            <InputComponent >
-                                <input 
-                                    type="text"
-                                    v-model="modalInput.nameValue"
-                                    :placeholder="modalPlaceholder.namePlaceholder"
-                                    @keyup.enter="saveProduct"
-                                    @keyup.esc="buttonClose"
-                                    :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
-                                    maxlength="70"
-                                >
-                            </InputComponent>
-                        </div>
-                        <div class="unit-code-wrapper">
-                            <div class="input-wrapper input-unit-code-wrapper">
-                                <label>Код товару</label>
-                                <InputComponent>
-                                    <input
-                                        type="text"
-                                        v-model="modalInput.codeValue"
-                                        :placeholder="modalPlaceholder.codePlaceholder"
-                                        @keyup.enter="saveProduct"
-                                        @keyup.esc="buttonClose"
-                                        :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
-                                        maxlength="6"
-                                    >
-                                </InputComponent>
-                            </div>
-                            <div class="input-wrapper input-unit-code-wrapper">
-                                <label>Од. вим.</label>
-                                <select 
-                                    v-model="modalInput.unitValue"
-                                    @keyup.esc="buttonClose"
-                                    
-                                >
-                                    <option value="шт">шт</option>
-                                    <option value="кг">кг</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input-wrapper">
-                            <label>Штрихкод</label>
+                    <BtnCrossClose>
+                        <button class="btn" type="button" @click="buttonClose"></button>
+                    </BtnCrossClose>
+                </div>
+                <div class="modal-body">
+                <!-- <div class="inputs-container"> -->
+                    <div class="input-wrapper">
+                        <label>Назва</label>
+                        <InputComponent >
+                            <input 
+                                type="text"
+                                v-model="modalInput.nameValue"
+                                :placeholder="modalPlaceholder.namePlaceholder"
+                                @keyup.enter="saveProduct"
+                                @keyup.esc="buttonClose"
+                                :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
+                                maxlength="70"
+                            >
+                        </InputComponent>
+                    </div>
+                    <div class="unit-code-wrapper">
+                        <div class="input-wrapper input-unit-code-wrapper">
+                            <label>Код товару</label>
                             <InputComponent>
                                 <input
                                     type="text"
-                                    v-model="modalInput.barcodeValue"
-                                    :placeholder="modalPlaceholder.barcodePlaceholder"
+                                    v-model="modalInput.codeValue"
+                                    :placeholder="modalPlaceholder.codePlaceholder"
                                     @keyup.enter="saveProduct"
                                     @keyup.esc="buttonClose"
                                     :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
-                                    maxlength="15"
+                                    maxlength="6"
                                 >
                             </InputComponent>
-                            </div>
-                        <!-- <div class="price-wrapper">
-                            <div class="price-title">
-                                <h3>Ціна</h3>
-                            </div>
-                            <div class="input-wrapper price-input-wrapper">
-                                <label>Закупка</label>
-                                <InputComponent>
-                                    <input
-                                        type="text"
-                                        v-model="modalInput.purchasePrice"
-                                        placeholder=""
-                                    >
-                                </InputComponent>
-                            </div>
-                            <div class="input-wrapper price-input-wrapper">
-                                <label>Роздрібна</label>
-                                <InputComponent>
-                                    <input
-                                        type="text"
-                                        v-model="modalInput.retailPrice"
-                                        :input="validationInpust"
-                                        placeholder=""
-                                    >
-                                </InputComponent>
-                            </div>
-                        </div> -->
-                        <!-- </div> -->
-                            <div class="btns-wrapper">
-                                <BtnClose @click="buttonClose">Закрити</BtnClose>
-                                <BtnSave 
-                                    @click="saveProduct"
-                                >Зберегти</BtnSave>
-                            </div>
-                    
+                        </div>
+                        <div class="input-wrapper input-unit-code-wrapper">
+                            <label>Од. вим.</label>
+                            <select 
+                                v-model="modalInput.unitValue"
+                                @keyup.esc="buttonClose"
+                                
+                            >
+                                <option value="шт">шт</option>
+                                <option value="кг">кг</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="input-wrapper">
+                        <label>Штрихкод</label>
+                        <InputComponent>
+                            <input
+                                type="text"
+                                v-model="modalInput.barcodeValue"
+                                :placeholder="modalPlaceholder.barcodePlaceholder"
+                                @keyup.enter="saveProduct"
+                                @keyup.esc="buttonClose"
+                                :class="errorSaveProduct ? 'errorClassPlaceholder' : ''"
+                                maxlength="15"
+                            >
+                        </InputComponent>
+                        </div>
+                    <!-- <div class="price-wrapper">
+                        <div class="price-title">
+                            <h3>Ціна</h3>
+                        </div>
+                        <div class="input-wrapper price-input-wrapper">
+                            <label>Закупка</label>
+                            <InputComponent>
+                                <input
+                                    type="text"
+                                    v-model="modalInput.purchasePrice"
+                                    placeholder=""
+                                >
+                            </InputComponent>
+                        </div>
+                        <div class="input-wrapper price-input-wrapper">
+                            <label>Роздрібна</label>
+                            <InputComponent>
+                                <input
+                                    type="text"
+                                    v-model="modalInput.retailPrice"
+                                    :input="validationInpust"
+                                    placeholder=""
+                                >
+                            </InputComponent>
+                        </div>
+                    </div> -->
+                    <!-- </div> -->
+                        <div class="btns-wrapper">
+                            <BtnClose @click="buttonClose">Закрити</BtnClose>
+                            <BtnSave 
+                                @click="saveProduct"
+                            >Зберегти</BtnSave>
+                        </div>
+                
                 </div>
             </div>
-        
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref, reactive, watch, toRefs } from 'vue';
-// import BtnCrossСlose from '../Ui/btnCrossСlose.vue';
-    const props = defineProps(['modalActive'])
-
+import { useStore } from 'vuex';
+const store = useStore();
 
 const modalInput = reactive({
     nameValue: '',
@@ -167,10 +164,7 @@ const emit = defineEmits(['btnClose', 'objSaveProduct'])
 
 
 function buttonClose() {
-    emit('btnClose')
-    errorSaveProduct.value = false
-    removeErrorPlaceholder()
-    clearInputs()
+    store.commit('toggleModal')
 }
 
 function saveProduct() {

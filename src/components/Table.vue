@@ -43,7 +43,7 @@
                 <tr
                 v-for="(product, index) in store.state.products"
                 :key="index"
-                @click="contextMenu(index, product)"
+                @click="contextMenu(index, product, $event)"
                 :class="{ 'isSelected': product === store.state.selectedProduct }"
                 class="tr-body">
                     <td data-code>{{ product.code }}</td>
@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import { reactive, watch, computed, ref } from 'vue';
+import { reactive, watch, computed, ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
 
@@ -86,10 +86,36 @@ function btnDelProduct() {
     console.log('btnDelProduct');
 }
 
+// ========================== out-click =======================================
+const handleClickOutside = (event) => {
+    // event.preventDefault()
+    console.log('out');
+      if (!event.target.closest('tbody') 
+        && !event.target.closest('.btns-actions')
+        && !event.target.closest('.modal-fone')
+    ) {
+        store.state.selectedProduct = null;
+      }
+    };
+// const conteiner = document.querySelector('.content-container')
+
+    onMounted(() => {
+        document.addEventListener('click', handleClickOutside);
+    });
+
+    onUnmounted(() => {
+        document.removeEventListener('click', handleClickOutside);
+    });
+//*===============================================================
+
 // const selectedProductIdx = ref(null)
-function contextMenu(index, product) {
+function contextMenu(index, product, event) {
     store.state.selectedProductIdx = index
     store.state.selectedProduct = product
+    // if (!event.target.closest('tr')) {
+    //     console.log('out-click', event.target);
+    //     // store.state.selectedProduct = null
+    //   }
     // event.stopPropagation();
     // const childElement = event.currentTarget;
     // const dataSelected = childElement.dataset.isSelected;

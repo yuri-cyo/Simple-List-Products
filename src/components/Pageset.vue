@@ -3,7 +3,7 @@
 		<Header>
 			<template v-slot:default>
 				<span class="icon-set"></span>
-				<h2 class="title product-title">{{ setName }}</h2>
+				<h2 class="title product-title">{{ store.state.menu.options }}</h2>
 			</template>
 		</Header>
 	</div>
@@ -11,12 +11,8 @@
 
 <script setup>
 	import { ref, reactive } from "vue";
-	const props = defineProps({
-		setName: {
-		type: String,
-		required: true
-		}
-	});
+	import { useStore } from 'vuex';
+	const store = useStore();
 </script>
 
 <style lang="scss" scoped>

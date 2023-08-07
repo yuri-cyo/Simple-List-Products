@@ -5,26 +5,28 @@
 				class="title-wrapper"
 				>
 				<span class="icon-product"></span>
-				<h2 class="title product-title"> {{ productName }}</h2>
+				<h2 class="title product-title"> {{ store.state.menu.goods }}</h2>
 			</template>
 			<template v-slot:actions>
 				<ul class="btns-actions">
 					<li 
 						class="icon icon-add-product btn-add-product"
-						@click="closeModal"
+						@click="activeModal"
 					>
 					</li>
 					<li 
-						class="icon icon-edit-icon btn-edit-product"
+						class="icon icon-edit btn-edit-product"
+						:class="!store.state.selectedProduct ? 'btn-not-active' : ''"
 					>
 					</li>
 					<li 
 						class="icon icon-del-icon btn-del-product"
 						@click="btnDelProduct"
+						:class="!store.state.selectedProduct ? 'btn-not-active' : ''"
 					>
 					</li>
 				</ul>
-				<span> {{ $store.state.count }}</span>
+				<span> {{ store.state.count }}</span>
 			</template>
 		</Header>
 			<ModalAddProd 
@@ -43,36 +45,37 @@
 import { ref, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore()
-	const props = defineProps({
-		productName: {
-		type: String,
-		required: true
-		}
-	});
+	// const props = defineProps({
+	// 	productName: {
+	// 	type: String,
+	// 	required: true
+	// 	}
+	// });
 
 
-	const modalActive = ref(false)
-	const closeModal = ()=> {
-		modalActive.value = !modalActive.value
+	// const modalActive = ref(false)
+	const activeModal = ()=> {
+		store.commit('toggleModal')
 	}
 	const delElem = ref(null)
 
 	const btnDelProduct = ()=> {
 		store.state.count++
 		if (store.state.selectedProduct) {
-			// store.state.products = store.state.products.filter(elem, idx => elem !== store.state.selectedProduct)
-			store.state.products = store.state.products.filter((elem, idx) => {
-				console.table('del-btn', elem, idx);
-				return elem !== store.state.selectedProduct
-			})
-			store.state.selectedProduct = null
-			store.state.selectedProductIdx = null;
-
+				// store.state.products = store.state.products.filter(elem, idx => elem !== store.state.selectedProduct)
+				store.state.products = store.state.products.filter((elem, idx) => {
+					console.table('del-btn', elem, idx);
+					return elem !== store.state.selectedProduct
+				})
+				store.state.selectedProduct = null
+				store.state.selectedProductIdx = null;
+	
+			// store.commit('increment')
+			
 		}
-		// store.commit('increment')
 }
 
-	const stateNewProduct = ref({})
+	const stateNewProduct = ref({}) // запис доданого товару
 
 	function objSP(newValueProduct) {
 		stateNewProduct.value = newValueProduct
@@ -96,7 +99,7 @@ const store = useStore()
 	justify-self: end;
 	gap: rem(7);
 	font-size: rem(28);
-	cursor: pointer;
+	// cursor: pointer;
 	transition: all 0.3s ease 0s;
 	padding-right: $pd-page;
 	.icon-del-icon {
@@ -124,7 +127,7 @@ const store = useStore()
 			}
 		}
 	}
-	.icon-edit-icon {
+	.icon-edit {
 		color: $icon-edit;
 		box-shadow: $btn-shadow $icon-edit;
 		border-radius: 100vh;
@@ -139,6 +142,7 @@ const store = useStore()
 		}
 	}
 	.icon {
+		cursor: pointer;
 		position: relative;
 		transition: all 0.3s ease 0s;
 		&::after {
@@ -156,5 +160,15 @@ const store = useStore()
 			}
 	}
 
+	.btn-not-active {
+		opacity: .5;
+		cursor: auto;
+		&:hover {
+			filter: none;
+			&::after{
+				content:'';
+			}
+		}
+	}
 }
 </style>

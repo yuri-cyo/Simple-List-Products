@@ -11,19 +11,19 @@
 					<li>
 						<router-link :productName="productName" class="router-link" to="/prod">
 							<span class="icon-product menu__icons-list"></span>
-							<span  class="menu__list-titles">{{ productName }}</span>
+							<span  class="menu__list-titles">{{ store.state.menu.goods }}</span>
 						</router-link>
 					</li>
 					<li>
 						<router-link class="router-link" to="/doc">
 							<span class="icon-doc menu__icons-list"></span>
-							<span class="menu__list-titles">{{ docName }}</span>
+							<span class="menu__list-titles">{{ store.state.menu.documents }}</span>
 						</router-link>
 					</li>
 					<li>
 						<router-link class="router-link" to="/set">
 							<span class="icon-set menu__icons-list"></span>
-							<span class="menu__list-titles">{{ setName }}</span>
+							<span class="menu__list-titles">{{ store.state.menu.options }}</span>
 						</router-link>
 					</li>
 				</ul>
@@ -35,40 +35,8 @@
 <script setup>
 import { ref, reactive } from "vue";
 
-// const productName = 'Товари'
-// const docName = 'Документи'
-// const setName = 'Опції'
-
-const props = defineProps({
-	productName: {
-		type: String,
-		required: true
-	},
-	docName: {
-		type: String,
-		required: true
-	},
-	setName: {
-		type: String,
-		required: true
-	},
-
-})
-// 	action: {
-// 		type: () => {}
-// 	}
-// });
-// const emit = defineEmits({
-// 		myProductName: {
-// 		type: String,
-// 		required: true
-// 	}
-// });
-// const emit = defineEmits([productName, docName, setName])
-
-// provide('productName', productName)
-
-
+import { useStore } from 'vuex';
+const store = useStore();
 
 </script>
 
@@ -151,6 +119,7 @@ $t-transition-menu: .3s;
 			.menu__list-titles {
 				color: black;
 				transition: all $t-transition-menu ease 0s;
+				font-size: $fs-menu;
 			}
 
 			&:hover {

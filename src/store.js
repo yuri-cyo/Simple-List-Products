@@ -4,6 +4,14 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
+        menu: {
+          goods: 'Товари',
+          documents: 'Документи',
+          options: 'Опції', 
+        },
+        modal: {
+          active: false,
+        },
         count: 0,
         products: [
             {
@@ -32,6 +40,10 @@ const store = createStore({
   mutations: {
     increment (state) {
       state.count = state.count + 2
+    },
+    toggleModal (state) {
+      // modalActive.value = !modalActive.value
+      state.modal.active = !state.modal.active
     }
   }
 })
