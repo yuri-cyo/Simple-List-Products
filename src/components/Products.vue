@@ -36,6 +36,7 @@
 			<Table 
 				:stateNewProduct="stateNewProduct"
 			></Table>
+			<p>{{ JSON.stringify(store.state.products) }}</p>
 </template>
 
 <script setup>
@@ -58,6 +59,16 @@ const store = useStore()
 
 	const btnDelProduct = ()=> {
 		store.state.count++
+		if (store.state.selectedProduct) {
+			// store.state.products = store.state.products.filter(elem, idx => elem !== store.state.selectedProduct)
+			store.state.products = store.state.products.filter((elem, idx) => {
+				console.table('del-btn', elem, idx);
+				return elem !== store.state.selectedProduct
+			})
+			store.state.selectedProduct = null
+			store.state.selectedProductIdx = null;
+
+		}
 		// store.commit('increment')
 }
 

@@ -41,12 +41,12 @@
             </thead>
             <tbody>
                 <tr
-                v-for="(products, index) in products"
-                :key="products.product.code"
+                v-for="(product, index) in store.state.products"
+                :key="index"
                 @click="contextMenu(index, product)"
-                :class="{ 'isSelected': index === selectedProduct }"
+                :class="{ 'isSelected': product === store.state.selectedProduct }"
                 class="tr-body">
-                    <td data-code>{{ products.code }}</td>
+                    <td data-code>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.units }}</td>
                     <td>{{ product.barcode }}</td>
@@ -61,193 +61,8 @@
 import { reactive, watch, computed, ref } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
-const products = ref(store.state.product)
 
 const props = defineProps(['stateNewProduct'])
-// const emits = defineEmits(['btnDelProduct'])
-
-// const products = reactive([
-//     {
-//     code: 1,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '123123123124',
-//     },
-//     {
-//     code: 2,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-//     {
-//     code: 3,
-//     name: 'Pepsi Black 1л',
-//     units: 'шт',
-//     barcode: '1241234123123123'
-//     },
-// ])
 
 const addProductOnTable = watch(() => {
     console.log(props.stateNewProduct);
@@ -258,7 +73,7 @@ const addProductOnTable = watch(() => {
             && props.stateNewProduct.barcode
         ) {
         store.state.products.push({
-            code: props.stateNewProduct.code,
+            code: Number(props.stateNewProduct.code),
             name: props.stateNewProduct.name,
             units: props.stateNewProduct.units,
             barcode: props.stateNewProduct.barcode
@@ -271,9 +86,10 @@ function btnDelProduct() {
     console.log('btnDelProduct');
 }
 
-const selectedProduct = ref(null)
+// const selectedProductIdx = ref(null)
 function contextMenu(index, product) {
-    selectedProduct.value = index
+    store.state.selectedProductIdx = index
+    store.state.selectedProduct = product
     // event.stopPropagation();
     // const childElement = event.currentTarget;
     // const dataSelected = childElement.dataset.isSelected;
@@ -285,6 +101,7 @@ function contextMenu(index, product) {
     // childElement.classList.toggle('isSelected')
     console.log(index);
     console.log(product);
+    // console.log(product.code);
     
 
     // const isSelected = childElement.getAttribute('data-selected') === 'true';
