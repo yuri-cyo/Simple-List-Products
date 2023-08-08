@@ -11,8 +11,8 @@ const store = createStore({
         },
         modal: {
           active: false,
+          delete: false,
         },
-        count: 0,
         products: [
             {
             code: 1,
@@ -35,15 +35,41 @@ const store = createStore({
         ],
         selectedProductIdx: null,
         selectedProduct: null,
+
+        modalInput: {
+          name: '',
+          code: '',
+          unit: 'шт',
+          barcode: '',
+          // purchasePrice: '0',
+          // retailPrice: '0'
+      },
+      errorSaveProduct: false,
     }
   },
+  actions: {
+    // closeAllModal (context){
+    //   for (const key in context.modal)
+    //   context.modal[key] = true
+    // },
+  },
   mutations: {
-    increment (state) {
-      state.count = state.count + 2
-    },
     toggleModal (state) {
+        state.modal.active = !state.modal.active
+
       // modalActive.value = !modalActive.value
-      state.modal.active = !state.modal.active
+    },
+    toggleModalDel (state) {
+      if (state.selectedProduct) {
+        state.modal.delete = !state.modal.delete
+      }
+      // modalActive.value = !modalActive.value
+    },
+    clearInputs(state) {
+      state.modalInput.name = ''
+      state.modalInput.code = ''
+      state.modalInput.unit = 'шт'
+      state.modalInput.barcode = ''
     }
   }
 })

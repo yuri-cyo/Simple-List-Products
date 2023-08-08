@@ -3,7 +3,7 @@
 			<template 
 				v-slot:default
 				class="title-wrapper"
-				>
+			>
 				<span class="icon-product"></span>
 				<h2 class="title product-title"> {{ store.state.menu.goods }}</h2>
 			</template>
@@ -21,70 +21,134 @@
 					</li>
 					<li 
 						class="icon icon-del-icon btn-del-product"
-						@click="btnDelProduct"
+						@click="activeModalDel"
 						:class="!store.state.selectedProduct ? 'btn-not-active' : ''"
 					>
 					</li>
 				</ul>
-				<span> {{ store.state.count }}</span>
 			</template>
 		</Header>
-			<ModalAddProd 
-				:modalActive="modalActive"
-				@btnClose="closeModal"
-				@objSaveProduct="objSP"
+			<ModalTemplate
+				v-show="store.state.modal.active"
 			>
-			</ModalAddProd>
-			<Table 
-				:stateNewProduct="stateNewProduct"
-			></Table>
-			<p>{{ JSON.stringify(store.state.products) }}</p>
+				<template v-slot:header>
+					<span class="icon-product"></span>
+					<h4 class="title-text">Картка товару: </h4>
+				</template>
+				<template v-slot:btnCrossClose>
+					<BtnCrossClose>
+                    <button class="btn" type="button" @click="buttonClose"></button>
+                </BtnCrossClose>
+				</template>
+				<template v-slot:default>
+					<ModalAddProd></ModalAddProd>
+				</template>
+				<template v-slot:btns>
+					<div 
+						class="btns-wrapper"
+						style="justify-content: flex-end"
+					>
+						<BtnClose @click="buttonClose">Закрити</BtnClose>
+						<BtnSave @click="saveProduct">Зберегти</BtnSave>
+					</div>
+				</template>
+			</ModalTemplate>
+			<ModalTemplate
+				v-if="store.state.modal.delete"
+			>
+			<template v-slot:header>
+				<span class="icon-del-icon"></span>
+				<h4 class="title-text">Видалення!</h4>
+			</template>
+			<template v-slot:btnCrossClose>
+				<BtnCrossClose>
+				<button class="btn" type="button" @click="activeModalDel"></button>
+			</BtnCrossClose>
+			</template>
+			<template v-slot:btns>
+				<div 
+					class="btns-wrapper"
+					style="justify-content: center;"
+				>
+					<BtnClose @click="activeModalDel">Закрити</BtnClose>
+					<BtnSave @click="btnDelProduct">Видалити</BtnSave>
+				</div>
+			</template>
+			<template v-slot:default>
+				<div class="modal-wrapper-del-message" style="min-width: 300px;">
+					<span>Видалити даний елемент?</span>
+					<strong>"{{ store.state.selectedProduct.name }}"</strong>
+					<span class="icon-del-icon"></span>
+				</div>
+			</template>
+			</ModalTemplate>
+			<Table></Table>
+			<!-- <p>{{ JSON.stringify(store.state.products) }}</p> -->
 </template>
 
 <script setup>
 import { ref, reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore()
-	// const props = defineProps({
-	// 	productName: {
-	// 	type: String,
-	// 	required: true
-	// 	}
-	// });
 
-
-	// const modalActive = ref(false)
-	const activeModal = ()=> {
-		store.commit('toggleModal')
+const activeModal = ()=> {
+	store.commit('toggleModal')
+}
+const activeModalDel = () => {
+	store.commit('toggleModalDel')
+}
+const btnDelProduct = ()=> {
+	if (store.state.selectedProduct) {
+			// store.state.products = store.state.products.filter(elem, idx => elem !== store.state.selectedProduct)
+			store.state.products = store.state.products.filter((elem, idx) => {
+				console.table('del-btn', elem, idx);
+				return elem !== store.state.selectedProduct
+			})
+			store.commit('toggleModalDel')
+			store.state.selectedProduct = null
+			store.state.selectedProductIdx = null;
+		
 	}
-	const delElem = ref(null)
-
-	const btnDelProduct = ()=> {
-		store.state.count++
-		if (store.state.selectedProduct) {
-				// store.state.products = store.state.products.filter(elem, idx => elem !== store.state.selectedProduct)
-				store.state.products = store.state.products.filter((elem, idx) => {
-					console.table('del-btn', elem, idx);
-					return elem !== store.state.selectedProduct
-				})
-				store.state.selectedProduct = null
-				store.state.selectedProductIdx = null;
-	
-			// store.commit('increment')
-			
-		}
 }
 
-	const stateNewProduct = ref({}) // запис доданого товару
+//========================= \/ MODAL \/ ========================
+function buttonClose() {
+	store.commit('toggleModal')
+	store.commit('clearInputs')
+	store.state.errorSaveProduct = false
+}
 
-	function objSP(newValueProduct) {
-		stateNewProduct.value = newValueProduct
-	}
+function saveProduct() {
+    store.state.modalInput.name = store.state.modalInput.name.trim()
+    const sendVar = {
+        code: store.state.modalInput.code,
+        name: store.state.modalInput.name,
+        units: store.state.modalInput.unit,
+        barcode: store.state.modalInput.barcode
+    }
+    if (store.state.modalInput.name.length < 4 
+    || store.state.modalInput.code.length < 4
+    || store.state.modalInput.barcode.length < 4) {
+        store.state.errorSaveProduct = true
+        
+    }
+    if (store.state.modalInput.name.length >= 4 
+    && store.state.modalInput.code.length >= 4
+    && store.state.modalInput.barcode.length >= 4) {
+        console.log(store.state.modalInput.code.length);
+		// const sendVar = store.state.modalInput
+		store.state.products.push(sendVar) 
+        buttonClose()
+
+    } else {
+        store.state.errorSaveProduct = true
+    }
+}
+//========================= /\ MODAL /\ ========================
 
 </script>
 
 <style lang="scss" scoped>
-
 .header-component {
 	// margin-top: rem(52);
 }
@@ -159,7 +223,6 @@ const store = useStore()
 				border-radius: 5px;
 			}
 	}
-
 	.btn-not-active {
 		opacity: .5;
 		cursor: auto;
@@ -171,4 +234,5 @@ const store = useStore()
 		}
 	}
 }
+
 </style>

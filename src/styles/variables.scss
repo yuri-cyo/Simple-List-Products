@@ -60,41 +60,19 @@ body {
 }
 
 .btn {
-    // background-color: $icon-del;
     border: none;
     padding: 10px;
     color: #ffff;
     font-size: rem(16);
     border-radius: rem(10);
     transition: all 0.3s ease 0s;
-    // transition: background-color 0.3s;
     overflow: hidden;
     position: relative;
-    // background-color: #4EA25D;
     &:hover {
-        // filter: brightness(0.8);
-        // opacity: 0.75;
-        // box-shadow: inset 0px 0px 100px #0b0b0b41;
-        // box-shadow: 0 2px 6px inset, inset 0px 0px 100px #0b0b0b41;
-        // opacity: 0.8;
-        // background-color: currentColor;
-        // backdrop-filter: blur(0.8);
         cursor: pointer;
         transition: all 0.3s ease 0s;
     }
 }
-
-//!=====================
-   
-
-
-
-
-
-
-
-
-
 
 .input {
     padding: rem(5);

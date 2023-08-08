@@ -42,6 +42,7 @@
             <tbody>
                 <tr
                 v-for="(product, index) in store.state.products"
+                
                 :key="index"
                 @click="contextMenu(index, product, $event)"
                 :class="{ 'isSelected': product === store.state.selectedProduct }"
@@ -54,6 +55,7 @@
                 <!-- <p>{{btnDelProduct}}</p> -->
             </tbody>
         </table>
+        <div v-show="!store.state.products[0]" class="empty-products"><span class="empty-products__text">Список товарів <b>порожній</b>! Нажміть <b>кнопку</b> <span class="icon icon-add-product"></span> для <b>добавлення товарів</b>!</span></div>
     </div>
 </template>
 
@@ -265,7 +267,34 @@ function removeProduct(event) {
             }
         }
     }
+}
 
+.empty-products {
+    color: #444444;
+    display: flex;
+    flex-direction: column;
+    // line-height: 2;
+    &__text {
+        position: relative;
+        margin-left: 12px;
+        &:before {
+                content: '';
+                position: absolute;
+                    width: 5px;
+                    height: 75%;
+                    border-radius: 100vh;
+                    background-color: $icon-del;
+                    left: -8px;
+                    top: 50%;
+                    transform: translateY(-50%);
+            }
+    }
+    .icon{
+        color: $icon-add;
+        font-size: rem(20);
+        margin: auto 0;
+        // vertical-align: middle
+    }
     
 }
 </style>

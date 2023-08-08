@@ -36,6 +36,8 @@
 }
 .icon-del-icon:before {
   content: "\e901";
+  display: flex;
+  justify-content:center;align-items: center;
 }
 .icon-menu:before {
   content: "\e903";
