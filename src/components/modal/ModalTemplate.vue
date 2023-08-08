@@ -42,7 +42,7 @@ function buttonClose() {
 }
 .modal-wrapper {
     // width: 500px;
-    max-width: 600px;
+    max-width: 500px;
     // height: 350px;
     display: flex;
     flex-direction: column;
@@ -71,7 +71,7 @@ function buttonClose() {
 .title-modal {
     display: flex;
     gap: rem(10);
-    width: 94%;
+    max-width: 420px;
 }
 :deep span {
     font-size: 22px;
@@ -81,8 +81,7 @@ function buttonClose() {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    display: flex;
-    align-items: center;
+ 
 }
 
 :deep .btns-wrapper {

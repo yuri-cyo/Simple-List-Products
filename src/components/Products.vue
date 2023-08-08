@@ -18,7 +18,7 @@
 						class="icon icon-edit btn-edit-product"
 						@click="editProduct"
 						:class="!store.state.selectedProduct ? 'btn-not-active' : ''"
-					>{{ store.state.modal.edit }}
+					>
 					</li>
 					
 					<li 
@@ -35,7 +35,7 @@
 			>
 				<template v-slot:header>
 					<span class="icon-product"></span>
-					<h4 class="title-text">Картка товару: </h4>
+					<h4 class="title-text" style="text-overflow: ellipsis;">Картка товару: {{ store.state.modalInput.name }}</h4>
 				</template>
 				<template v-slot:btnCrossClose>
 					<BtnCrossClose>
@@ -143,12 +143,14 @@ function saveProduct() {
 		if (!store.state.modal.edit) {
 			store.state.products.push(sendVar) 
 			store.commit('clearInputs')
+			store.state.selectedProduct = sendVar
 		} else if (store.state.modal.edit){
 			// Код для Edit
 			store.state.products[store.state.selectedProductIdx] = sendVar
+			store.state.selectedProduct = store.state.products[store.state.selectedProductIdx]
 			store.state.modal.edit = false
 		}
-        buttonClose()
+		buttonClose()
 
     } else {
         store.state.errorSaveProduct = true
