@@ -75,7 +75,7 @@ const addProductOnTable = watch(() => {
             && props.stateNewProduct.barcode
         ) {
         store.state.products.push({
-            code: Number(props.stateNewProduct.code),
+            code: props.stateNewProduct.code,
             name: props.stateNewProduct.name,
             units: props.stateNewProduct.units,
             barcode: props.stateNewProduct.barcode

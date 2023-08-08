@@ -12,22 +12,23 @@ const store = createStore({
         modal: {
           active: false,
           delete: false,
+          edit: false
         },
         products: [
             {
-            code: 1,
+            code: '0001',
             name: 'Pepsi Black 1л',
             units: 'шт',
             barcode: '123123123124',
             },
             {
-            code: 2,
+            code: '0002',
             name: 'Pepsi Black 1л',
             units: 'шт',
             barcode: '1241234123123123'
             },
             {
-            code: 3,
+            code: '0003',
             name: 'Pepsi Black 1л',
             units: 'шт',
             barcode: '1241234123123123'
@@ -39,7 +40,7 @@ const store = createStore({
         modalInput: {
           name: '',
           code: '',
-          unit: 'шт',
+          units: 'шт',
           barcode: '',
           // purchasePrice: '0',
           // retailPrice: '0'
@@ -56,14 +57,14 @@ const store = createStore({
   mutations: {
     toggleModal (state) {
         state.modal.active = !state.modal.active
-
-      // modalActive.value = !modalActive.value
     },
     toggleModalDel (state) {
       if (state.selectedProduct) {
         state.modal.delete = !state.modal.delete
       }
-      // modalActive.value = !modalActive.value
+    },
+    toggleModalEdit(state) {
+      state.modal.edit = !state.modal.edit
     },
     clearInputs(state) {
       state.modalInput.name = ''

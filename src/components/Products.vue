@@ -16,9 +16,11 @@
 					</li>
 					<li 
 						class="icon icon-edit btn-edit-product"
+						@click="editProduct"
 						:class="!store.state.selectedProduct ? 'btn-not-active' : ''"
-					>
+					>{{ store.state.modal.edit }}
 					</li>
+					
 					<li 
 						class="icon icon-del-icon btn-del-product"
 						@click="activeModalDel"
@@ -116,6 +118,7 @@ function buttonClose() {
 	store.commit('toggleModal')
 	store.commit('clearInputs')
 	store.state.errorSaveProduct = false
+	store.state.modal.edit = false
 }
 
 function saveProduct() {
@@ -123,7 +126,7 @@ function saveProduct() {
     const sendVar = {
         code: store.state.modalInput.code,
         name: store.state.modalInput.name,
-        units: store.state.modalInput.unit,
+        units: store.state.modalInput.units,
         barcode: store.state.modalInput.barcode
     }
     if (store.state.modalInput.name.length < 4 
@@ -137,12 +140,43 @@ function saveProduct() {
     && store.state.modalInput.barcode.length >= 4) {
         console.log(store.state.modalInput.code.length);
 		// const sendVar = store.state.modalInput
-		store.state.products.push(sendVar) 
+		if (!store.state.modal.edit) {
+			store.state.products.push(sendVar) 
+			store.commit('clearInputs')
+		} else if (store.state.modal.edit){
+			// Код для Edit
+			store.state.products[store.state.selectedProductIdx] = sendVar
+			store.state.modal.edit = false
+		}
         buttonClose()
 
     } else {
         store.state.errorSaveProduct = true
     }
+}
+
+function loadSelectProductInModalEdit() {
+	if (store.state.modal.edit = true) {
+		store.state.modalInput.code = store.state.selectedProduct.code
+		store.state.modalInput.name = store.state.selectedProduct.name
+		store.state.modalInput.units = store.state.selectedProduct.units
+		store.state.modalInput.barcode = store.state.selectedProduct.barcode
+		// store.state.modalInput.name = 'wqeqwe'
+		console.log(store.state.selectedProduct.name);
+
+	}
+}
+
+function editProduct() {
+	if (store.state.selectedProduct) {
+		store.state.modal.edit = true
+		// store.commit('toggleModalEdit')
+		if (store.state.modal.edit) {
+			store.state.modal.active = true
+			loadSelectProductInModalEdit()
+		}
+
+	}
 }
 //========================= /\ MODAL /\ ========================
 

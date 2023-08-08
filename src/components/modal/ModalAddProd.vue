@@ -34,7 +34,7 @@
                 <div class="input-wrapper input-unit-code-wrapper">
                     <label>Од. вим.</label>
                     <select 
-                        v-model="store.state.modalInput.unit"
+                        v-model="store.state.modalInput.units"
                         @keyup.esc="buttonClose"
                         
                     >
@@ -121,7 +121,7 @@ const errorMessage = ref('')
 function clearInputs() {
     store.state.modalInput.name = ''
     store.state.modalInput.code = ''
-    store.state.modalInput.unit = 'шт'
+    store.state.modalInput.unitss = 'шт'
     store.state.modalInput.barcode = ''
 }
 const checkErrorInputModal = watch(()=> {
