@@ -17,21 +17,21 @@ const store = createStore({
         products: [
             {
             code: '0001',
-            name: 'Pepsi Black 1л',
+            name: 'Напій сильногаз. Coca-Cola п/пл 1.75л',
             units: 'шт',
-            barcode: '123123123124',
+            barcode: '5449000130389',
             },
             {
             code: '0002',
-            name: 'Pepsi Black 1л',
+            name: "Чіпси картопляні Lay's Сметана і зелень м/у 120г",
             units: 'шт',
             barcode: '1241234123123123'
             },
             {
             code: '0003',
-            name: 'Pepsi Black 1л',
-            units: 'шт',
-            barcode: '1241234123123123'
+            name: 'Ковб. сирокопч. Масар Австрійська',
+            units: 'кг',
+            barcode: '18336'
             },
         ],
         selectedProductIdx: null,
