@@ -121,39 +121,116 @@ function buttonClose() {
 	store.state.modal.edit = false
 }
 
+function formatStringCode(code) {
+	const minLength = 4;
+	code = code + ''
+	let result = code;
+	while (result.length < minLength) {
+		result = '0' + result;
+	}
+	return result
+}
+
+function generateCode() {
+	let newCode = 0
+	store.state.products.forEach(element => {
+		const regexDelZero = /^0+/
+		
+		let codeInputFormatNumber = Number(element.code.replace(regexDelZero, ''))
+
+		let codeiProductFormatNumber = Number(store.state.modalInput.code.replace(regexDelZero, ''))
+		let codeModalInputFormatNumber = Number(store.state.modalInput.code.replace(regexDelZero, ''))
+		let lastIdxProducts = store.state.products.length - 1
+		let lastCodeProductsFormNumber = Number(store.state.products[lastIdxProducts].code.replace(regexDelZero, ''))
+
+		if (store.state.modalInput.code === '') {
+			newCode = lastCodeProductsFormNumber + 1
+			console.warn('iterration codeInputFormatNumber', codeInputFormatNumber );
+			console.warn('iterration newCode', newCode );
+		}
+		console.warn('newCode', newCode);
+		console.warn('formatStringCode', formatStringCode(newCode));
+		if (newCode !== codeiProductFormatNumber) {
+			store.state.modalInput.code = formatStringCode(newCode)
+
+		}
+	});
+}
+
+function checkOriginalCode() {
+	let status = true
+	// store.state.products.forEach(element => {
+
+	for (const element of store.state.products) {
+		if (store.state.modalInput.code === element.code) {
+			status = false
+			console.error('code is not original', status);
+			console.log('i.code', element.code);
+			console.log('store.state.modalInput.code', store.state.modalInput.code);
+			store.state.errorSaveProduct = true
+			break
+		} else {
+			status = true
+			console.log('code is original', status);
+			console.log('i.code', element.code);
+			console.log('store.state.modalInput.code', store.state.modalInput.code);
+			store.state.errorSaveProduct = false
+		}
+	}
+	console.log('store.state.errorSaveProduct', store.state.errorSaveProduct);
+	return status
+}
+
 function saveProduct() {
-    store.state.modalInput.name = store.state.modalInput.name.trim()
+	// generateCode()
+	console.log('store.state.modalInput[-1]', store.state.products.length - 1);
+	store.state.modalInput.name = store.state.modalInput.name.trim()
+	
+	if (!store.state.modalInput.code) {
+		generateCode()
+	}
     const sendVar = {
         code: store.state.modalInput.code,
         name: store.state.modalInput.name,
         units: store.state.modalInput.units,
         barcode: store.state.modalInput.barcode
     }
+	checkOriginalCode()
     if (store.state.modalInput.name.length < 4 
     || store.state.modalInput.code.length < 4
-    || store.state.modalInput.barcode.length < 4) {
-        store.state.errorSaveProduct = true
+    || store.state.modalInput.barcode.length < 4){
+		store.state.errorSaveProduct = true	
         
     }
-    if (store.state.modalInput.name.length >= 4 
-    && store.state.modalInput.code.length >= 4
-    && store.state.modalInput.barcode.length >= 4) {
+    else {
         console.log(store.state.modalInput.code.length);
 		// const sendVar = store.state.modalInput
-		if (!store.state.modal.edit) {
+		if (!store.state.modal.edit && store.state.errorSaveProduct === false) {
 			store.state.products.push(sendVar) 
 			store.commit('clearInputs')
 			store.state.selectedProduct = sendVar
+			store.state.selectedProductIdx = store.state.products.length -1
+			buttonClose()
 		} else if (store.state.modal.edit){
-			// Код для Edit
-			store.state.products[store.state.selectedProductIdx] = sendVar
-			store.state.selectedProduct = store.state.products[store.state.selectedProductIdx]
-			store.state.modal.edit = false
-		}
-		buttonClose()
+			if (store.state.selectedProduct.code === store.state.modalInput.code) {
+				store.state.errorSaveProduct = false
+				console.log('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',store.state.errorSaveProduct);
+			}
+			if (store.state.errorSaveProduct === false) {
+				// store.state.errorSaveProduct = false
 
-    } else {
-        store.state.errorSaveProduct = true
+				store.state.products[store.state.selectedProductIdx] = sendVar
+				store.state.selectedProduct = store.state.products[store.state.selectedProductIdx]
+				store.state.modal.edit = false
+
+			buttonClose()
+			} else {
+				store.state.errorSaveProduct = true	
+			}
+			// Код для Edit
+			
+		}
+
     }
 }
 

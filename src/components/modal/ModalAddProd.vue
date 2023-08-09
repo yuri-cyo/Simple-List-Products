@@ -3,7 +3,7 @@
         <div class="modal-body">
         <!-- <div class="inputs-container"> -->
             <div class="input-wrapper">
-                <label>Назва</label>
+                <label>Назва <span class="required-field">*</span></label>
                 <InputComponent >
                     <input 
                         type="text"
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="input-wrapper">
-                <label>Штрихкод</label>
+                <label>Штрихкод <span class="required-field">*</span></label>
                 <InputComponent>
                     <input
                         type="text"
@@ -165,6 +165,11 @@ const computedValue = watch(()=> {
         color: $icon-del;
     }
     border-color: $icon-del;
+}
+
+.required-field {
+    color: $icon-del;
+    font-size: rem(16);
 }
 .modal-body {
     display: flex;
