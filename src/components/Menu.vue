@@ -28,6 +28,9 @@
 					</li>
 				</ul>
 			</div>
+			<div class="about">
+				<span>Розробив <a id="about-link" href="http://yuri-chapyuk.space/" target="_blank">Yuriy Chapyuk</a></span>
+			</div>
 		</nav>
 	</div>
 </template>
@@ -38,6 +41,7 @@ import { ref, reactive } from "vue";
 import { useStore } from 'vuex';
 const store = useStore();
 
+
 </script>
 
 
@@ -47,6 +51,9 @@ $t-transition-menu: .3s;
 .nav {
 	width: $w-menu;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	background-color: $bgMenu;
 	border-right: 1px solid $strokeMenu;
 	font-size: $fs-menu;
@@ -95,6 +102,10 @@ $t-transition-menu: .3s;
 
 .menu {
 	font-size: $fs-default;
+	// display: flex;
+	// flex-direction: column;
+	// flex: 1 1 100%;
+	// height: 100%;
 	.menu__icons-list {
 		padding-right: rem(10);
 		width: rem(30);
@@ -142,6 +153,27 @@ $t-transition-menu: .3s;
 		// &__list-titles {
 		// 	color: black;
 		// }
+	}
+
+	.about {
+		margin: 0 auto;
+		padding: $pd-page;
+		color: $btn-close;
+		font-size: rem(14);
+		text-align: center;
+		a {
+			// display: block;
+			// color: $icon-edit;
+			font-weight: 600;
+			// border: 1px solid $btn-close;
+			// padding: rem(2) rem(5);
+			// border-radius: rem(20);
+			// letter-spacing: 1px;
+			// text-transform: uppercase;
+			&:hover {
+				color: $icon-del;
+			}
+		}
 	}
 
 </style>

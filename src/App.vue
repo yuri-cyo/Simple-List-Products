@@ -54,10 +54,6 @@ const trimInputMixin = {
   // width: 100%;
   // width: 1000px;
 }
-.menu {
-  min-height: 100vh;
-
-}
 
 .content-container {
   // padding: 0 rem(10);

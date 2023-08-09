@@ -1,18 +1,51 @@
-# Vue 3 + TypeScript + Vite
+# Simple List Products
+---
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Цей проект представляє собою програму для автоматизації процесу управління товарами в магазині. Програма написана на платформі <b>Electron.js</b> та використовує фреймворк <b>Vue 3</b> для створення користувацького інтерфейсу.
 
-## Recommended IDE Setup
+## Основні можливості
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Додавання інформації про товар:
+  - <b>Код товару</b>
+  - <b>Штрихкод</b>
+  - <b>Назва товару</b>
+- <b>Редагування і видалення</b> товарів із списку
+### Валідація полів вводу
 
-## Type Support For `.vue` Imports in TS
+ *<b> * В меню додавання товарів реалізована валідація полів вводу. Без правильного введення інформації, картка товару не може бути збережена через проходження валідаційних перевірок!</b>*
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+   - В полі <b>назва</b> видаляються всі зайві <b>пробіли</b>, між словами дозволено <b>лише один пробіл</b>!
+   - В полі код і штрихкод дозволено вводити лише <b>числа</b>!
+   - В полі код <b>мінімальна кількість символів: 4</b>
+   - В полі штрихкод <b>мінімальна кількість символів: 4</b>
+- Обов`язкові поля для вводу відмічені *:
+- Код товару <b>генерується автоматично</b> і його значення є <b>унікальним</b>, що виключає можливість співпадіння з іншими кодами товарів.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+### Встановлення:
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- Клонуйте цей репозиторій на свій комп'ютер.
+  ```shell
+   git clone https://github.com/yuri-cyo/Simple-List-Products.git
+   ```
+- Відкрийте редактор коду і виберіть папку з проектом
+- Відкрийте термінал
+- Встановіть залежності за допомогою команди:
+
+   ```shell
+   npm install
+   ```
+---
+### Запуск проекта:
+
+- Запуск режима розробника
+   ```shell
+   npm run dev
+   ```
+- Запуск режима розробника + Vue Devtools
+   ```shell
+   npm run dt
+   ```
+- Зібрати проект
+   ```shell
+   npm run build
+   ```

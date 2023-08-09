@@ -22,30 +22,32 @@ function createWindow() {
   win = new BrowserWindow({
     width: 1280,
     height: 800,
-    // icon: path.join(process.env.PUBLIC, '../logo.svg'),
+    icon: path.join(process.env.PUBLIC, '../logo.svg'),
     // icon: '/path/to/logo.svg',
     // icon: path.join(__dirname, '/icon.svg',),
-    icon: path.join(__dirname, 'assets', 'icon', 'icon.svg'),
+    // icon: path.join(__dirname, 'assets', 'icon', 'icon.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
-
+  
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
     win?.webContents.send('main-process-message', (new Date).toLocaleString())
   })
+      
+      
+      if (VITE_DEV_SERVER_URL) {
+        win.loadURL(VITE_DEV_SERVER_URL)
+      } else {
+        win.loadFile(path.join(process.env.DIST, 'index.html'))
+      }
+    }
+        
+        app.on('window-all-closed', () => {
+          win = null
+        })
+        
 
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL)
-  } else {
-    // win.loadFile('dist/index.html')
-    win.loadFile(path.join(process.env.DIST, 'index.html'))
-  }
-}
-
-app.on('window-all-closed', () => {
-  win = null
-})
 
 app.whenReady().then(createWindow)
