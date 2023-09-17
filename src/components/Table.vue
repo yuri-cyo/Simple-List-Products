@@ -1,14 +1,14 @@
 <template @btnDelProduct="btnDelProduct">
     <div class="table-container">
         <table class="table">
-            <thead v-show="false">
+            <thead>
                 <tr>
                     <th>Код товару</th>
                     <th>Назва</th>
                     <th>Од. вим.</th>
                     <th>Штрихкод</th>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <th>
                         <InputComponent>
                             <input 
@@ -37,7 +37,7 @@
                             >
                         </InputComponent>
                     </th>
-                </tr>
+                </tr> -->
             </thead>
             <tbody>
                 <tr
@@ -187,10 +187,23 @@ function removeProduct(event) {
         // bottom: -1px;
         // // z-index: -1
     }
-    thead {
+    thead tr {
+        top: calc($pd-page - $pd-page - $pd-page - 1px);
         position: sticky;
-        top: 42px;
-        z-index: 3;
+        z-index: 999;
+
+        // &::before {
+        //     content: '';
+        //     border: 2px solid black !important;
+        //     left: 0;
+        //     top: 0;
+        //     right: 0;
+        //     bottom: 0;
+
+        // }
+    }
+    th {
+
     }
     th, td {
         text-align: start;
@@ -202,6 +215,17 @@ function removeProduct(event) {
     }
     th {
         background-color: $color-th;
+         &::before {
+            position: absolute;
+            content: '';
+            border: 1px solid $strokeMenu !important;
+            top: -0.5px;
+            bottom: -0.5px;
+            left: -0.5px;
+            right: -0.5px;
+            z-index: -1;
+
+        }
     }
     tr:nth-child(odd) {
         background-color: $color-tr-odd;

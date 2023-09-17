@@ -58,15 +58,18 @@ const trimInputMixin = {
 .content-container {
   // padding: 0 rem(10);
   padding: $pd-page;
+  // margin: $pd-page;
+  // padding: 1px;
   // display: flex;
   // flex-direction: column;
   // flex: 1 1 auto;
-  margin-top: 43px;
+  margin-top: calc($header-h);
   // width: 100%;
   height: calc(100vh - $header-h);
   width: calc(100vw - $w-menu);
   overflow: auto;
   position: relative;
+  background-color: $bgMenu;
 }
 
 .router-view {
