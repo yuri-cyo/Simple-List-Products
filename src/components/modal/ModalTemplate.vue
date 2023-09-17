@@ -51,7 +51,7 @@ function buttonClose() {
     left: 50%;
     padding: $pd-page;
     transform: translate(-50%, -50%);
-    // backdrop-filter: blur(4px);
+    backdrop-filter: blur(5px);
     // background-color: $bgMenu;
     background-color: #ffffffb8;
     
