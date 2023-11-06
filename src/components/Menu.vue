@@ -29,7 +29,7 @@
 				</ul>
 			</div>
 			<div class="about">
-				<span>Розробив <a id="about-link" href="http://yuri-chapyuk.space/" target="_blank">Yuriy Chapyuk</a></span>
+				<span>Розробив <a id="about-link" href="http://yuri-chapyuk.com.ua" target="_blank">Yuriy Chapyuk</a></span>
 			</div>
 		</nav>
 	</div>
